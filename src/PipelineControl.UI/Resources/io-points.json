@@ -1,0 +1,1291 @@
+{
+  "notes": [
+    "当前 64 点映射按三张物理卡显示：IO控制卡 16 点、扩展卡1 24 点、扩展卡2 24 点。",
+    "24 点扩展卡底层仍按厂家 16 位 module 拆分为 16+8 读取，但画面点位名称在每张物理卡内从 0 重新开始。",
+    "现场验证后只修改本 io-points.json，不要把点位地址写死到 C# 代码里。"
+  ],
+  "inputs": [
+    {
+      "pointNo": 1,
+      "name": "线头第一工位光电",
+      "ioType": "Input",
+      "moduleIndex": 0,
+      "bitIndex": 0,
+      "description": "线头第一工位光电",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 2,
+      "name": "线头升降台行程开关",
+      "ioType": "Input",
+      "moduleIndex": 0,
+      "bitIndex": 1,
+      "description": "线头升降台行程开关",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 3,
+      "name": "线头下限位开关",
+      "ioType": "Input",
+      "moduleIndex": 0,
+      "bitIndex": 2,
+      "description": "线头下限位开关",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 4,
+      "name": "线头上限位开关",
+      "ioType": "Input",
+      "moduleIndex": 0,
+      "bitIndex": 3,
+      "description": "线头上限位开关",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 5,
+      "name": "线尾AGV信号",
+      "ioType": "Input",
+      "moduleIndex": 0,
+      "bitIndex": 4,
+      "description": "线尾AGV信号",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 6,
+      "name": "线尾升降台行程开关",
+      "ioType": "Input",
+      "moduleIndex": 0,
+      "bitIndex": 5,
+      "description": "线尾升降台行程开关",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 7,
+      "name": "线尾下限开关",
+      "ioType": "Input",
+      "moduleIndex": 0,
+      "bitIndex": 6,
+      "description": "线尾下限开关",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 8,
+      "name": "线尾上限开关",
+      "ioType": "Input",
+      "moduleIndex": 0,
+      "bitIndex": 7,
+      "description": "线尾上限开关",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 9,
+      "name": "线头防呆光电",
+      "ioType": "Input",
+      "moduleIndex": 0,
+      "bitIndex": 8,
+      "description": "线头防呆光电",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 10,
+      "name": "X9",
+      "ioType": "Input",
+      "moduleIndex": 0,
+      "bitIndex": 9,
+      "description": "IO控制卡 输入点 X9，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 11,
+      "name": "X10",
+      "ioType": "Input",
+      "moduleIndex": 0,
+      "bitIndex": 10,
+      "description": "IO控制卡 输入点 X10，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 12,
+      "name": "X11",
+      "ioType": "Input",
+      "moduleIndex": 0,
+      "bitIndex": 11,
+      "description": "IO控制卡 输入点 X11，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 13,
+      "name": "X12",
+      "ioType": "Input",
+      "moduleIndex": 0,
+      "bitIndex": 12,
+      "description": "IO控制卡 输入点 X12，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 14,
+      "name": "X13",
+      "ioType": "Input",
+      "moduleIndex": 0,
+      "bitIndex": 13,
+      "description": "IO控制卡 输入点 X13，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 15,
+      "name": "X14",
+      "ioType": "Input",
+      "moduleIndex": 0,
+      "bitIndex": 14,
+      "description": "IO控制卡 输入点 X14，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 16,
+      "name": "X15",
+      "ioType": "Input",
+      "moduleIndex": 0,
+      "bitIndex": 15,
+      "description": "IO控制卡 输入点 X15，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 17,
+      "name": "X0",
+      "ioType": "Input",
+      "moduleIndex": 1,
+      "bitIndex": 0,
+      "description": "扩展卡1 输入点 X0，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 18,
+      "name": "X1",
+      "ioType": "Input",
+      "moduleIndex": 1,
+      "bitIndex": 1,
+      "description": "扩展卡1 输入点 X1，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 19,
+      "name": "X2",
+      "ioType": "Input",
+      "moduleIndex": 1,
+      "bitIndex": 2,
+      "description": "扩展卡1 输入点 X2，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 20,
+      "name": "X3",
+      "ioType": "Input",
+      "moduleIndex": 1,
+      "bitIndex": 3,
+      "description": "扩展卡1 输入点 X3，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 21,
+      "name": "X4",
+      "ioType": "Input",
+      "moduleIndex": 1,
+      "bitIndex": 4,
+      "description": "扩展卡1 输入点 X4，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 22,
+      "name": "X5",
+      "ioType": "Input",
+      "moduleIndex": 1,
+      "bitIndex": 5,
+      "description": "扩展卡1 输入点 X5，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 23,
+      "name": "X6",
+      "ioType": "Input",
+      "moduleIndex": 1,
+      "bitIndex": 6,
+      "description": "扩展卡1 输入点 X6，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 24,
+      "name": "X7",
+      "ioType": "Input",
+      "moduleIndex": 1,
+      "bitIndex": 7,
+      "description": "扩展卡1 输入点 X7，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 25,
+      "name": "X8",
+      "ioType": "Input",
+      "moduleIndex": 1,
+      "bitIndex": 8,
+      "description": "扩展卡1 输入点 X8，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 26,
+      "name": "X9",
+      "ioType": "Input",
+      "moduleIndex": 1,
+      "bitIndex": 9,
+      "description": "扩展卡1 输入点 X9，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 27,
+      "name": "X10",
+      "ioType": "Input",
+      "moduleIndex": 1,
+      "bitIndex": 10,
+      "description": "扩展卡1 输入点 X10，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 28,
+      "name": "X11",
+      "ioType": "Input",
+      "moduleIndex": 1,
+      "bitIndex": 11,
+      "description": "扩展卡1 输入点 X11，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 29,
+      "name": "X12",
+      "ioType": "Input",
+      "moduleIndex": 1,
+      "bitIndex": 12,
+      "description": "扩展卡1 输入点 X12，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 30,
+      "name": "X13",
+      "ioType": "Input",
+      "moduleIndex": 1,
+      "bitIndex": 13,
+      "description": "扩展卡1 输入点 X13，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 31,
+      "name": "X14",
+      "ioType": "Input",
+      "moduleIndex": 1,
+      "bitIndex": 14,
+      "description": "扩展卡1 输入点 X14，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 32,
+      "name": "X15",
+      "ioType": "Input",
+      "moduleIndex": 1,
+      "bitIndex": 15,
+      "description": "扩展卡1 输入点 X15，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 33,
+      "name": "X16",
+      "ioType": "Input",
+      "moduleIndex": 2,
+      "bitIndex": 0,
+      "description": "扩展卡1 输入点 X16，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 34,
+      "name": "X17",
+      "ioType": "Input",
+      "moduleIndex": 2,
+      "bitIndex": 1,
+      "description": "扩展卡1 输入点 X17，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 35,
+      "name": "X18",
+      "ioType": "Input",
+      "moduleIndex": 2,
+      "bitIndex": 2,
+      "description": "扩展卡1 输入点 X18，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 36,
+      "name": "X19",
+      "ioType": "Input",
+      "moduleIndex": 2,
+      "bitIndex": 3,
+      "description": "扩展卡1 输入点 X19，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 37,
+      "name": "X20",
+      "ioType": "Input",
+      "moduleIndex": 2,
+      "bitIndex": 4,
+      "description": "扩展卡1 输入点 X20，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 38,
+      "name": "X21",
+      "ioType": "Input",
+      "moduleIndex": 2,
+      "bitIndex": 5,
+      "description": "扩展卡1 输入点 X21，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 39,
+      "name": "X22",
+      "ioType": "Input",
+      "moduleIndex": 2,
+      "bitIndex": 6,
+      "description": "扩展卡1 输入点 X22，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 40,
+      "name": "X23",
+      "ioType": "Input",
+      "moduleIndex": 2,
+      "bitIndex": 7,
+      "description": "扩展卡1 输入点 X23，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 41,
+      "name": "X0",
+      "ioType": "Input",
+      "moduleIndex": 3,
+      "bitIndex": 0,
+      "description": "扩展卡2 输入点 X0，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 42,
+      "name": "X1",
+      "ioType": "Input",
+      "moduleIndex": 3,
+      "bitIndex": 1,
+      "description": "扩展卡2 输入点 X1，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 43,
+      "name": "X2",
+      "ioType": "Input",
+      "moduleIndex": 3,
+      "bitIndex": 2,
+      "description": "扩展卡2 输入点 X2，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 44,
+      "name": "X3",
+      "ioType": "Input",
+      "moduleIndex": 3,
+      "bitIndex": 3,
+      "description": "扩展卡2 输入点 X3，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 45,
+      "name": "X4",
+      "ioType": "Input",
+      "moduleIndex": 3,
+      "bitIndex": 4,
+      "description": "扩展卡2 输入点 X4，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 46,
+      "name": "X5",
+      "ioType": "Input",
+      "moduleIndex": 3,
+      "bitIndex": 5,
+      "description": "扩展卡2 输入点 X5，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 47,
+      "name": "X6",
+      "ioType": "Input",
+      "moduleIndex": 3,
+      "bitIndex": 6,
+      "description": "扩展卡2 输入点 X6，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 48,
+      "name": "X7",
+      "ioType": "Input",
+      "moduleIndex": 3,
+      "bitIndex": 7,
+      "description": "扩展卡2 输入点 X7，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 49,
+      "name": "X8",
+      "ioType": "Input",
+      "moduleIndex": 3,
+      "bitIndex": 8,
+      "description": "扩展卡2 输入点 X8，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 50,
+      "name": "X9",
+      "ioType": "Input",
+      "moduleIndex": 3,
+      "bitIndex": 9,
+      "description": "扩展卡2 输入点 X9，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 51,
+      "name": "X10",
+      "ioType": "Input",
+      "moduleIndex": 3,
+      "bitIndex": 10,
+      "description": "扩展卡2 输入点 X10，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 52,
+      "name": "X11",
+      "ioType": "Input",
+      "moduleIndex": 3,
+      "bitIndex": 11,
+      "description": "扩展卡2 输入点 X11，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 53,
+      "name": "X12",
+      "ioType": "Input",
+      "moduleIndex": 3,
+      "bitIndex": 12,
+      "description": "扩展卡2 输入点 X12，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 54,
+      "name": "X13",
+      "ioType": "Input",
+      "moduleIndex": 3,
+      "bitIndex": 13,
+      "description": "扩展卡2 输入点 X13，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 55,
+      "name": "X14",
+      "ioType": "Input",
+      "moduleIndex": 3,
+      "bitIndex": 14,
+      "description": "扩展卡2 输入点 X14，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 56,
+      "name": "X15",
+      "ioType": "Input",
+      "moduleIndex": 3,
+      "bitIndex": 15,
+      "description": "扩展卡2 输入点 X15，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 57,
+      "name": "X16",
+      "ioType": "Input",
+      "moduleIndex": 4,
+      "bitIndex": 0,
+      "description": "扩展卡2 输入点 X16，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 58,
+      "name": "X17",
+      "ioType": "Input",
+      "moduleIndex": 4,
+      "bitIndex": 1,
+      "description": "扩展卡2 输入点 X17，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 59,
+      "name": "X18",
+      "ioType": "Input",
+      "moduleIndex": 4,
+      "bitIndex": 2,
+      "description": "扩展卡2 输入点 X18，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 60,
+      "name": "X19",
+      "ioType": "Input",
+      "moduleIndex": 4,
+      "bitIndex": 3,
+      "description": "扩展卡2 输入点 X19，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 61,
+      "name": "X20",
+      "ioType": "Input",
+      "moduleIndex": 4,
+      "bitIndex": 4,
+      "description": "扩展卡2 输入点 X20，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 62,
+      "name": "X21",
+      "ioType": "Input",
+      "moduleIndex": 4,
+      "bitIndex": 5,
+      "description": "扩展卡2 输入点 X21，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 63,
+      "name": "X22",
+      "ioType": "Input",
+      "moduleIndex": 4,
+      "bitIndex": 6,
+      "description": "扩展卡2 输入点 X22，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 64,
+      "name": "X23",
+      "ioType": "Input",
+      "moduleIndex": 4,
+      "bitIndex": 7,
+      "description": "扩展卡2 输入点 X23，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    }
+  ],
+  "outputs": [
+    {
+      "pointNo": 1,
+      "name": "Y0",
+      "ioType": "Output",
+      "moduleIndex": 0,
+      "bitIndex": 0,
+      "description": "IO控制卡 输出点 Y0，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 2,
+      "name": "Y1",
+      "ioType": "Output",
+      "moduleIndex": 0,
+      "bitIndex": 1,
+      "description": "IO控制卡 输出点 Y1，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 3,
+      "name": "Y2",
+      "ioType": "Output",
+      "moduleIndex": 0,
+      "bitIndex": 2,
+      "description": "IO控制卡 输出点 Y2，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 4,
+      "name": "Y3",
+      "ioType": "Output",
+      "moduleIndex": 0,
+      "bitIndex": 3,
+      "description": "IO控制卡 输出点 Y3，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 5,
+      "name": "Y4",
+      "ioType": "Output",
+      "moduleIndex": 0,
+      "bitIndex": 4,
+      "description": "IO控制卡 输出点 Y4，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 6,
+      "name": "Y5",
+      "ioType": "Output",
+      "moduleIndex": 0,
+      "bitIndex": 5,
+      "description": "IO控制卡 输出点 Y5，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 7,
+      "name": "Y6",
+      "ioType": "Output",
+      "moduleIndex": 0,
+      "bitIndex": 6,
+      "description": "IO控制卡 输出点 Y6，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 8,
+      "name": "Y7",
+      "ioType": "Output",
+      "moduleIndex": 0,
+      "bitIndex": 7,
+      "description": "IO控制卡 输出点 Y7，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 9,
+      "name": "Y8",
+      "ioType": "Output",
+      "moduleIndex": 0,
+      "bitIndex": 8,
+      "description": "IO控制卡 输出点 Y8，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 10,
+      "name": "Y9",
+      "ioType": "Output",
+      "moduleIndex": 0,
+      "bitIndex": 9,
+      "description": "IO控制卡 输出点 Y9，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 11,
+      "name": "Y10",
+      "ioType": "Output",
+      "moduleIndex": 0,
+      "bitIndex": 10,
+      "description": "IO控制卡 输出点 Y10，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 12,
+      "name": "Y11",
+      "ioType": "Output",
+      "moduleIndex": 0,
+      "bitIndex": 11,
+      "description": "IO控制卡 输出点 Y11，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 13,
+      "name": "Y12",
+      "ioType": "Output",
+      "moduleIndex": 0,
+      "bitIndex": 12,
+      "description": "IO控制卡 输出点 Y12，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 14,
+      "name": "Y13",
+      "ioType": "Output",
+      "moduleIndex": 0,
+      "bitIndex": 13,
+      "description": "IO控制卡 输出点 Y13，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 15,
+      "name": "Y14",
+      "ioType": "Output",
+      "moduleIndex": 0,
+      "bitIndex": 14,
+      "description": "IO控制卡 输出点 Y14，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 16,
+      "name": "Y15",
+      "ioType": "Output",
+      "moduleIndex": 0,
+      "bitIndex": 15,
+      "description": "IO控制卡 输出点 Y15，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 17,
+      "name": "线头电缸上升",
+      "ioType": "Output",
+      "moduleIndex": 1,
+      "bitIndex": 0,
+      "description": "扩展卡1 Y0，线头电缸上升同步点1",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 18,
+      "name": "线头电缸上升",
+      "ioType": "Output",
+      "moduleIndex": 1,
+      "bitIndex": 1,
+      "description": "扩展卡1 Y1，线头电缸上升同步点2",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 19,
+      "name": "线头电缸下降",
+      "ioType": "Output",
+      "moduleIndex": 1,
+      "bitIndex": 2,
+      "description": "扩展卡1 Y2，线头电缸下降同步点1",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 20,
+      "name": "线头电缸下降",
+      "ioType": "Output",
+      "moduleIndex": 1,
+      "bitIndex": 3,
+      "description": "扩展卡1 Y3，线头电缸下降同步点2",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 21,
+      "name": "线尾电缸上升",
+      "ioType": "Output",
+      "moduleIndex": 1,
+      "bitIndex": 4,
+      "description": "扩展卡1 Y4，线尾电缸上升同步点1",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 22,
+      "name": "线尾电缸上升",
+      "ioType": "Output",
+      "moduleIndex": 1,
+      "bitIndex": 5,
+      "description": "扩展卡1 Y5，线尾电缸上升同步点2",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 23,
+      "name": "线尾电缸下降",
+      "ioType": "Output",
+      "moduleIndex": 1,
+      "bitIndex": 6,
+      "description": "扩展卡1 Y6，线尾电缸下降同步点1",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 24,
+      "name": "线尾电缸下降",
+      "ioType": "Output",
+      "moduleIndex": 1,
+      "bitIndex": 7,
+      "description": "扩展卡1 Y7，线尾电缸下降同步点2",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 25,
+      "name": "线头气缸伸出",
+      "ioType": "Output",
+      "moduleIndex": 1,
+      "bitIndex": 8,
+      "description": "扩展卡1 Y8，线头气缸伸出",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 26,
+      "name": "线尾气缸伸出",
+      "ioType": "Output",
+      "moduleIndex": 1,
+      "bitIndex": 9,
+      "description": "扩展卡1 Y9，线尾气缸伸出",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 27,
+      "name": "Y10",
+      "ioType": "Output",
+      "moduleIndex": 1,
+      "bitIndex": 10,
+      "description": "扩展卡1 输出点 Y10，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 28,
+      "name": "Y11",
+      "ioType": "Output",
+      "moduleIndex": 1,
+      "bitIndex": 11,
+      "description": "扩展卡1 输出点 Y11，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 29,
+      "name": "Y12",
+      "ioType": "Output",
+      "moduleIndex": 1,
+      "bitIndex": 12,
+      "description": "扩展卡1 输出点 Y12，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 30,
+      "name": "Y13",
+      "ioType": "Output",
+      "moduleIndex": 1,
+      "bitIndex": 13,
+      "description": "扩展卡1 输出点 Y13，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 31,
+      "name": "Y14",
+      "ioType": "Output",
+      "moduleIndex": 1,
+      "bitIndex": 14,
+      "description": "扩展卡1 输出点 Y14，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 32,
+      "name": "Y15",
+      "ioType": "Output",
+      "moduleIndex": 1,
+      "bitIndex": 15,
+      "description": "扩展卡1 输出点 Y15，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 33,
+      "name": "Y16",
+      "ioType": "Output",
+      "moduleIndex": 2,
+      "bitIndex": 0,
+      "description": "扩展卡1 输出点 Y16，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 34,
+      "name": "Y17",
+      "ioType": "Output",
+      "moduleIndex": 2,
+      "bitIndex": 1,
+      "description": "扩展卡1 输出点 Y17，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 35,
+      "name": "Y18",
+      "ioType": "Output",
+      "moduleIndex": 2,
+      "bitIndex": 2,
+      "description": "扩展卡1 输出点 Y18，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 36,
+      "name": "Y19",
+      "ioType": "Output",
+      "moduleIndex": 2,
+      "bitIndex": 3,
+      "description": "扩展卡1 输出点 Y19，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 37,
+      "name": "Y20",
+      "ioType": "Output",
+      "moduleIndex": 2,
+      "bitIndex": 4,
+      "description": "扩展卡1 输出点 Y20，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 38,
+      "name": "Y21",
+      "ioType": "Output",
+      "moduleIndex": 2,
+      "bitIndex": 5,
+      "description": "扩展卡1 输出点 Y21，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 39,
+      "name": "Y22",
+      "ioType": "Output",
+      "moduleIndex": 2,
+      "bitIndex": 6,
+      "description": "扩展卡1 输出点 Y22，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 40,
+      "name": "Y23",
+      "ioType": "Output",
+      "moduleIndex": 2,
+      "bitIndex": 7,
+      "description": "扩展卡1 输出点 Y23，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 41,
+      "name": "Y0",
+      "ioType": "Output",
+      "moduleIndex": 3,
+      "bitIndex": 0,
+      "description": "扩展卡2 输出点 Y0，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 42,
+      "name": "Y1",
+      "ioType": "Output",
+      "moduleIndex": 3,
+      "bitIndex": 1,
+      "description": "扩展卡2 输出点 Y1，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 43,
+      "name": "Y2",
+      "ioType": "Output",
+      "moduleIndex": 3,
+      "bitIndex": 2,
+      "description": "扩展卡2 输出点 Y2，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 44,
+      "name": "Y3",
+      "ioType": "Output",
+      "moduleIndex": 3,
+      "bitIndex": 3,
+      "description": "扩展卡2 输出点 Y3，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 45,
+      "name": "Y4",
+      "ioType": "Output",
+      "moduleIndex": 3,
+      "bitIndex": 4,
+      "description": "扩展卡2 输出点 Y4，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 46,
+      "name": "Y5",
+      "ioType": "Output",
+      "moduleIndex": 3,
+      "bitIndex": 5,
+      "description": "扩展卡2 输出点 Y5，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 47,
+      "name": "Y6",
+      "ioType": "Output",
+      "moduleIndex": 3,
+      "bitIndex": 6,
+      "description": "扩展卡2 输出点 Y6，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 48,
+      "name": "Y7",
+      "ioType": "Output",
+      "moduleIndex": 3,
+      "bitIndex": 7,
+      "description": "扩展卡2 输出点 Y7，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 49,
+      "name": "Y8",
+      "ioType": "Output",
+      "moduleIndex": 3,
+      "bitIndex": 8,
+      "description": "扩展卡2 输出点 Y8，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 50,
+      "name": "Y9",
+      "ioType": "Output",
+      "moduleIndex": 3,
+      "bitIndex": 9,
+      "description": "扩展卡2 输出点 Y9，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 51,
+      "name": "Y10",
+      "ioType": "Output",
+      "moduleIndex": 3,
+      "bitIndex": 10,
+      "description": "扩展卡2 输出点 Y10，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 52,
+      "name": "Y11",
+      "ioType": "Output",
+      "moduleIndex": 3,
+      "bitIndex": 11,
+      "description": "扩展卡2 输出点 Y11，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 53,
+      "name": "Y12",
+      "ioType": "Output",
+      "moduleIndex": 3,
+      "bitIndex": 12,
+      "description": "扩展卡2 输出点 Y12，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 54,
+      "name": "Y13",
+      "ioType": "Output",
+      "moduleIndex": 3,
+      "bitIndex": 13,
+      "description": "扩展卡2 输出点 Y13，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 55,
+      "name": "Y14",
+      "ioType": "Output",
+      "moduleIndex": 3,
+      "bitIndex": 14,
+      "description": "扩展卡2 输出点 Y14，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 56,
+      "name": "Y15",
+      "ioType": "Output",
+      "moduleIndex": 3,
+      "bitIndex": 15,
+      "description": "扩展卡2 输出点 Y15，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 57,
+      "name": "Y16",
+      "ioType": "Output",
+      "moduleIndex": 4,
+      "bitIndex": 0,
+      "description": "扩展卡2 输出点 Y16，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 58,
+      "name": "Y17",
+      "ioType": "Output",
+      "moduleIndex": 4,
+      "bitIndex": 1,
+      "description": "扩展卡2 输出点 Y17，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 59,
+      "name": "Y18",
+      "ioType": "Output",
+      "moduleIndex": 4,
+      "bitIndex": 2,
+      "description": "扩展卡2 输出点 Y18，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 60,
+      "name": "Y19",
+      "ioType": "Output",
+      "moduleIndex": 4,
+      "bitIndex": 3,
+      "description": "扩展卡2 输出点 Y19，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 61,
+      "name": "Y20",
+      "ioType": "Output",
+      "moduleIndex": 4,
+      "bitIndex": 4,
+      "description": "扩展卡2 输出点 Y20，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 62,
+      "name": "Y21",
+      "ioType": "Output",
+      "moduleIndex": 4,
+      "bitIndex": 5,
+      "description": "扩展卡2 输出点 Y21，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 63,
+      "name": "Y22",
+      "ioType": "Output",
+      "moduleIndex": 4,
+      "bitIndex": 6,
+      "description": "扩展卡2 输出点 Y22，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    },
+    {
+      "pointNo": 64,
+      "name": "Y23",
+      "ioType": "Output",
+      "moduleIndex": 4,
+      "bitIndex": 7,
+      "description": "扩展卡2 输出点 Y23，现场确认后改为实际名称。",
+      "isEnabled": true,
+      "safeDefaultValue": false
+    }
+  ]
+}

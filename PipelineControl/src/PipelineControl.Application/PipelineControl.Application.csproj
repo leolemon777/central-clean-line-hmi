@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0-windows</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.2" />
+    <PackageReference Include="Stateless" Version="5.15.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\PipelineControl.Domain\PipelineControl.Domain.csproj" />
+    <ProjectReference Include="..\PipelineControl.Infrastructure\PipelineControl.Infrastructure.csproj" />
+    <ProjectReference Include="..\PipelineControl.Shared\PipelineControl.Shared.csproj" />
+  </ItemGroup>
+
+</Project>

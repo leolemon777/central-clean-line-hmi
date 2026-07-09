@@ -1,0 +1,211 @@
+<UserControl x:Class="PipelineControl.UI.Views.Shell.Components.StatusBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:shell="clr-namespace:PipelineControl.UI.ViewModels.Shell"
+             Height="32">
+    <UserControl.Resources>
+        <!-- Base Badge Style -->
+        <Style x:Key="StatusBadgeStyle" TargetType="{x:Type Border}">
+            <Setter Property="CornerRadius" Value="6" />
+            <Setter Property="Padding" Value="8,3" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Margin" Value="0,0,8,0" />
+        </Style>
+
+        <!-- Main Card Border Style -->
+        <Style x:Key="MainCardBadgeStyle" TargetType="{x:Type Border}" BasedOn="{StaticResource StatusBadgeStyle}">
+            <Setter Property="Background" Value="{DynamicResource Status.RunningBg.Brush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Status.RunningBorder.Brush}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding MainCardOnline}" Value="False">
+                    <Setter Property="Background" Value="{DynamicResource Status.DangerBg.Brush}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource Status.Danger.Brush}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Main Card Ellipse Style -->
+        <Style x:Key="MainCardDotStyle" TargetType="{x:Type Ellipse}">
+            <Setter Property="Width" Value="6" />
+            <Setter Property="Height" Value="6" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Fill" Value="{DynamicResource Status.Running.Brush}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding MainCardOnline}" Value="False">
+                    <Setter Property="Fill" Value="{DynamicResource Status.Danger.Brush}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Main Card Text Style -->
+        <Style x:Key="MainCardTextStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{DynamicResource Status.RunningText.Strong.Brush}" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding MainCardOnline}" Value="False">
+                    <Setter Property="Foreground" Value="{DynamicResource Alarm.CriticalText.Brush}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Ext Card Border Style -->
+        <Style x:Key="ExtCardBadgeStyle" TargetType="{x:Type Border}" BasedOn="{StaticResource StatusBadgeStyle}">
+            <Setter Property="Background" Value="{DynamicResource Status.RunningBg.Brush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Status.RunningBorder.Brush}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ExtCardsOnline}" Value="False">
+                    <Setter Property="Background" Value="{DynamicResource Status.DangerBg.Brush}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource Status.Danger.Brush}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Ext Card Ellipse Style -->
+        <Style x:Key="ExtCardDotStyle" TargetType="{x:Type Ellipse}">
+            <Setter Property="Width" Value="6" />
+            <Setter Property="Height" Value="6" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="Fill" Value="{DynamicResource Status.Running.Brush}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ExtCardsOnline}" Value="False">
+                    <Setter Property="Fill" Value="{DynamicResource Status.Danger.Brush}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Ext Card Text Style -->
+        <Style x:Key="ExtCardTextStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{DynamicResource Status.RunningText.Strong.Brush}" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ExtCardsOnline}" Value="False">
+                    <Setter Property="Foreground" Value="{DynamicResource Alarm.CriticalText.Brush}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Scan Cycle Border Style -->
+        <Style x:Key="ScanCycleBadgeStyle" TargetType="{x:Type Border}" BasedOn="{StaticResource StatusBadgeStyle}">
+            <Setter Property="Background" Value="{DynamicResource Status.IdleBg.Brush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Border.Default.Brush}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ScanCycleLevel}" Value="{x:Static shell:ScanCycleLevel.Warning}">
+                    <Setter Property="Background" Value="{DynamicResource Status.WarningBg.Brush}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource Status.Warning.Brush}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ScanCycleLevel}" Value="{x:Static shell:ScanCycleLevel.Danger}">
+                    <Setter Property="Background" Value="{DynamicResource Status.CriticalBg.Brush}" />
+                    <Setter Property="BorderBrush" Value="{DynamicResource Status.CriticalBorder.Brush}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Scan Cycle Text Style -->
+        <Style x:Key="ScanCycleTextStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{DynamicResource Text.Secondary.Brush}" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ScanCycleLevel}" Value="{x:Static shell:ScanCycleLevel.Warning}">
+                    <Setter Property="Foreground" Value="{DynamicResource Status.WarningText.Strong.Brush}" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding ScanCycleLevel}" Value="{x:Static shell:ScanCycleLevel.Danger}">
+                    <Setter Property="Foreground" Value="{DynamicResource Status.AlarmText.Brush}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Neutral Badge Style -->
+        <Style x:Key="NeutralBadgeStyle" TargetType="{x:Type Border}" BasedOn="{StaticResource StatusBadgeStyle}">
+            <Setter Property="Background" Value="{DynamicResource Status.IdleBg.Brush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Border.Default.Brush}" />
+        </Style>
+
+        <!-- Neutral Text Style -->
+        <Style x:Key="NeutralTextStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Foreground" Value="{DynamicResource Text.Secondary.Brush}" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+        </Style>
+    </UserControl.Resources>
+
+    <Border Background="{DynamicResource Bg.Surface.Brush}"
+            BorderBrush="{DynamicResource Border.Default.Brush}"
+            BorderThickness="0,1,0,0"
+            Padding="12,0">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Main Card Badge -->
+            <Border Grid.Column="0" Style="{StaticResource MainCardBadgeStyle}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Ellipse Style="{StaticResource MainCardDotStyle}" />
+                    <TextBlock Text="{Binding MainCardIp, Mode=OneWay}"
+                               Margin="6,0,0,0"
+                               FontFamily="{StaticResource Font.Mono}"
+                               FontSize="{StaticResource Font.Size.Small}">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock" BasedOn="{StaticResource MainCardTextStyle}">
+                                <Style.Triggers>
+                                    <Trigger Property="Text" Value="">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </Trigger>
+                                    <Trigger Property="Text" Value="{x:Null}">
+                                        <Setter Property="Visibility" Value="Collapsed" />
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                    <TextBlock Text="主卡"
+                               Margin="6,0,0,0"
+                               FontSize="{StaticResource Font.Size.Small}"
+                               Style="{StaticResource MainCardTextStyle}" />
+                </StackPanel>
+            </Border>
+
+            <!-- Extension Card Badge -->
+            <Border Grid.Column="1" Style="{StaticResource ExtCardBadgeStyle}">
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                    <Ellipse Style="{StaticResource ExtCardDotStyle}" />
+                    <TextBlock Text="扩展1 · 扩展2"
+                               Margin="6,0,0,0"
+                               FontSize="{StaticResource Font.Size.Small}"
+                               Style="{StaticResource ExtCardTextStyle}" />
+                </StackPanel>
+            </Border>
+
+            <!-- Scan Cycle Badge -->
+            <Border Grid.Column="3" Style="{StaticResource ScanCycleBadgeStyle}">
+                <TextBlock Text="{Binding ScanCycleMs, StringFormat=扫描 {0:F1} 毫秒, Mode=OneWay}"
+                           FontFamily="{StaticResource Font.Mono}"
+                           FontSize="{StaticResource Font.Size.Small}"
+                           Style="{StaticResource ScanCycleTextStyle}" />
+            </Border>
+
+            <!-- Heartbeat Badge -->
+            <Border Grid.Column="4" Style="{StaticResource NeutralBadgeStyle}">
+                <TextBlock Text="{Binding KeepAliveRemainMs, StringFormat=心跳 {0:F0} 毫秒, Mode=OneWay}"
+                           FontFamily="{StaticResource Font.Mono}"
+                           FontSize="{StaticResource Font.Size.Small}"
+                           Style="{StaticResource NeutralTextStyle}" />
+            </Border>
+
+            <!-- Clock Text -->
+            <TextBlock Grid.Column="5"
+                       Text="{Binding CurrentTime, StringFormat={}{0:yyyy-MM-dd HH:mm:ss}, Mode=OneWay}"
+                       Margin="10,0,0,0"
+                       FontFamily="{StaticResource Font.Mono}"
+                       FontSize="{StaticResource Font.Size.Small}"
+                       FontWeight="Normal"
+                       Foreground="{DynamicResource Text.Primary.Brush}"
+                       VerticalAlignment="Center" />
+        </Grid>
+    </Border>
+</UserControl>

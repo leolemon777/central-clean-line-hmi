@@ -1,0 +1,196 @@
+<UserControl x:Class="PipelineControl.UI.Views.Pages.IoMonitor.Controls.IoBitCellView"
+             x:Name="Root"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:motion="clr-namespace:PipelineControl.UI.Views.Common.Behaviors">
+    <UserControl.Resources>
+        <Style x:Key="CellTextVisibilityStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Visibility" Value="Collapsed" />
+            <Setter Property="Foreground" Value="{DynamicResource Text.Primary.Brush}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ShowBitText, ElementName=Root}" Value="True">
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsOn, ElementName=Root}" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource Text.White.Brush}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="SignalTextVisibilityStyle" TargetType="{x:Type TextBlock}">
+            <Setter Property="Visibility" Value="Collapsed" />
+            <Setter Property="Foreground" Value="{DynamicResource Text.Tertiary.Brush}" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding ShowBitText, ElementName=Root}" Value="True">
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding SignalText, ElementName=Root}" Value="">
+                    <Setter Property="Visibility" Value="Collapsed" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding IsOn, ElementName=Root}" Value="True">
+                    <Setter Property="Foreground" Value="{DynamicResource Text.White.Brush}" />
+                    <Setter Property="Opacity" Value="0.75" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ForcedDotVisibilityStyle" TargetType="{x:Type Ellipse}">
+            <Setter Property="Visibility" Value="Collapsed" />
+            <Style.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding IsForced, ElementName=Root}" Value="True" />
+                        <Condition Binding="{Binding IsOutput, ElementName=Root}" Value="True" />
+                        <Condition Binding="{Binding ShowBitText, ElementName=Root}" Value="True" />
+                    </MultiDataTrigger.Conditions>
+                    <Setter Property="Visibility" Value="Visible" />
+                </MultiDataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Button Command="{Binding ClickCommand, ElementName=Root}"
+            CommandParameter="{Binding Tag, ElementName=Root}"
+            ToolTip="{Binding CellTooltip, ElementName=Root}"
+            Cursor="Hand"
+            PreviewTouchDown="CellButton_OnPreviewTouchDown"
+            PreviewTouchUp="CellButton_OnPreviewTouchUp"
+            PreviewStylusDown="CellButton_OnPreviewStylusDown"
+            PreviewStylusUp="CellButton_OnPreviewStylusUp"
+            Padding="0"
+            BorderThickness="0"
+            Background="{DynamicResource Bg.Transparent.Brush}"
+            motion:InteractionMotionBehavior.IsMotionEnabled="True"
+            motion:InteractionMotionBehavior.HoverLift="0"
+            motion:InteractionMotionBehavior.PressScale="0.985"
+            motion:InteractionMotionBehavior.ShadowLevel="0">
+        <Button.Template>
+            <ControlTemplate TargetType="{x:Type Button}">
+                <Border x:Name="CellBorder"
+                        Background="{DynamicResource Io.Off.Brush}"
+                        BorderBrush="{DynamicResource Border.Subtle.Brush}"
+                        BorderThickness="1"
+                        CornerRadius="3">
+                    <Grid ClipToBounds="True" Margin="2,1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="14" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid x:Name="PointTextHost">
+                            <TextBlock x:Name="PointText"
+                                       Text="{Binding BitText, ElementName=Root, Mode=OneWay}"
+                                       Style="{StaticResource CellTextVisibilityStyle}"
+                                       FontFamily="{StaticResource Font.Sans}"
+                                       FontSize="12"
+                                       FontWeight="SemiBold"
+                                       HorizontalAlignment="Stretch"
+                                       TextAlignment="Center"
+                                       TextTrimming="CharacterEllipsis"
+                                       TextWrapping="NoWrap"
+                                       LineStackingStrategy="BlockLineHeight"
+                                       LineHeight="14" />
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <TextBlock x:Name="SignalNameText"
+                                       Text="{Binding SignalText, ElementName=Root, Mode=OneWay}"
+                                       Style="{StaticResource SignalTextVisibilityStyle}"
+                                       FontFamily="{StaticResource Font.Chinese}"
+                                       FontSize="11"
+                                       HorizontalAlignment="Stretch"
+                                       TextAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       TextTrimming="None"
+                                       TextWrapping="Wrap"
+                                       LineStackingStrategy="BlockLineHeight"
+                                       LineHeight="13"
+                                       MinHeight="24"
+                                       Padding="2,0" />
+                        </Grid>
+                        <Ellipse Style="{StaticResource ForcedDotVisibilityStyle}"
+                                 Width="6"
+                                 Height="6"
+                                 HorizontalAlignment="Right"
+                                 VerticalAlignment="Top"
+                                 Margin="0,-2,-2,0"
+                                 Fill="{DynamicResource Io.ForcedAccent.Brush}"
+                                 Stroke="{DynamicResource Text.White.Brush}"
+                                 StrokeThickness="1" />
+                    </Grid>
+                </Border>
+                <ControlTemplate.Triggers>
+                    <DataTrigger Binding="{Binding IsOn, ElementName=Root}" Value="True">
+                        <Setter TargetName="CellBorder" Property="Background" Value="{DynamicResource Io.InputOn.Brush}" />
+                        <Setter Property="Foreground" Value="{DynamicResource Text.White.Brush}" />
+                    </DataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsOn, ElementName=Root}" Value="True" />
+                            <Condition Binding="{Binding IsOutput, ElementName=Root}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="CellBorder" Property="Background" Value="{DynamicResource Io.OutputOn.Brush}" />
+                    </MultiDataTrigger>
+                    <DataTrigger Binding="{Binding IsSelected, ElementName=Root}" Value="True">
+                        <Setter TargetName="CellBorder" Property="BorderBrush" Value="{DynamicResource Io.SelectionOutline.Brush}" />
+                        <Setter TargetName="CellBorder" Property="BorderThickness" Value="2" />
+                    </DataTrigger>
+                    <DataTrigger Binding="{Binding SignalText, ElementName=Root}" Value="">
+                        <Setter TargetName="PointTextHost" Property="Grid.RowSpan" Value="2" />
+                        <Setter TargetName="PointTextHost" Property="VerticalAlignment" Value="Center" />
+                        <Setter TargetName="SignalNameText" Property="Visibility" Value="Collapsed" />
+                    </DataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsForced, ElementName=Root}" Value="True" />
+                            <Condition Binding="{Binding IsOutput, ElementName=Root}" Value="True" />
+                            <Condition Binding="{Binding ShowBitText, ElementName=Root}" Value="False" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="CellBorder" Property="BorderBrush" Value="{DynamicResource Io.ForcedAccent.Brush}" />
+                        <Setter TargetName="CellBorder" Property="BorderThickness" Value="1.5" />
+                    </MultiDataTrigger>
+                    <Trigger Property="IsMouseOver" Value="True">
+                        <Setter TargetName="CellBorder" Property="Background" Value="{DynamicResource Io.OffHover.Brush}" />
+                        <Setter TargetName="CellBorder" Property="BorderBrush" Value="{DynamicResource Border.Strong.Brush}" />
+                    </Trigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
+                            <Condition Binding="{Binding IsOn, ElementName=Root}" Value="True" />
+                            <Condition Binding="{Binding IsOutput, ElementName=Root}" Value="False" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="CellBorder" Property="Background" Value="{DynamicResource Io.InputOnHover.Brush}" />
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsMouseOver, RelativeSource={RelativeSource TemplatedParent}}" Value="True" />
+                            <Condition Binding="{Binding IsOn, ElementName=Root}" Value="True" />
+                            <Condition Binding="{Binding IsOutput, ElementName=Root}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="CellBorder" Property="Background" Value="{DynamicResource Io.OutputOnHover.Brush}" />
+                    </MultiDataTrigger>
+                    <MultiDataTrigger>
+                        <MultiDataTrigger.Conditions>
+                            <Condition Binding="{Binding IsForced, ElementName=Root}" Value="True" />
+                            <Condition Binding="{Binding IsOutput, ElementName=Root}" Value="True" />
+                            <Condition Binding="{Binding ShowBitText, ElementName=Root}" Value="True" />
+                        </MultiDataTrigger.Conditions>
+                        <Setter TargetName="CellBorder" Property="Background" Value="{DynamicResource Io.OutputOn.Brush}" />
+                        <Setter TargetName="CellBorder" Property="BorderBrush" Value="{DynamicResource Io.ForcedAccent.Brush}" />
+                        <Setter TargetName="CellBorder" Property="BorderThickness" Value="2" />
+                        <Setter TargetName="PointText" Property="Foreground" Value="{DynamicResource Text.White.Brush}" />
+                        <Setter TargetName="SignalNameText" Property="Foreground" Value="{DynamicResource Text.White.Brush}" />
+                    </MultiDataTrigger>
+                    <Trigger Property="IsPressed" Value="True">
+                        <Setter TargetName="CellBorder" Property="Background" Value="{DynamicResource Brand.Accent.Brush}" />
+                        <Setter TargetName="CellBorder" Property="BorderBrush" Value="{DynamicResource Brand.Primary.Brush}" />
+                        <Setter TargetName="CellBorder" Property="BorderThickness" Value="2" />
+                        <Setter TargetName="PointText" Property="Foreground" Value="{DynamicResource Brand.OnPrimary.Brush}" />
+                        <Setter TargetName="SignalNameText" Property="Foreground" Value="{DynamicResource Brand.OnPrimary.Brush}" />
+                    </Trigger>
+                </ControlTemplate.Triggers>
+            </ControlTemplate>
+        </Button.Template>
+    </Button>
+</UserControl>
+
+
+

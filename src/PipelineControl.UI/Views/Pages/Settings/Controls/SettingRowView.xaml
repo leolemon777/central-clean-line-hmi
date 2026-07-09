@@ -1,0 +1,223 @@
+<UserControl x:Class="PipelineControl.UI.Views.Pages.Settings.Controls.SettingRowView"
+             FontFamily="{StaticResource Font.Chinese}"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:PipelineControl.UI.Views.Common.Converters"
+             xmlns:motion="clr-namespace:PipelineControl.UI.Views.Common.Behaviors"
+             xmlns:models="clr-namespace:PipelineControl.UI.ViewModels.Pages.Settings.Models"
+             xmlns:pages="clr-namespace:PipelineControl.UI.Views.Pages.Settings">
+    <UserControl.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+
+        <Style x:Key="系统设置InputStyle" TargetType="{x:Type TextBox}" BasedOn="{StaticResource AppTextBoxStyle}">
+            <Setter Property="MinHeight" Value="34" />
+            <Setter Property="MinWidth" Value="160" />
+            <Setter Property="Padding" Value="9,5" />
+            <Setter Property="FontSize" Value="{StaticResource Font.Size.Meta}" />
+            <Setter Property="Foreground" Value="{DynamicResource Text.Primary.Brush}" />
+            <Setter Property="Background" Value="{DynamicResource Bg.Card.Brush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Border.Strong.Brush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding HasError}" Value="True">
+                    <Setter Property="BorderBrush" Value="{DynamicResource Status.Danger.Brush}" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="系统设置PathButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="MinHeight" Value="34" />
+            <Setter Property="Padding" Value="12,0" />
+            <Setter Property="FontSize" Value="{StaticResource Font.Size.Meta}" />
+            <Setter Property="Foreground" Value="{DynamicResource Text.Secondary.Brush}" />
+            <Setter Property="Background" Value="{DynamicResource Bg.Card.Brush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Border.Strong.Brush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="motion:InteractionMotionBehavior.IsMotionEnabled" Value="True" />
+            <Setter Property="motion:InteractionMotionBehavior.HoverLift" Value="{StaticResource Motion.Lift.Standard}" />
+            <Setter Property="motion:InteractionMotionBehavior.PressScale" Value="{StaticResource Motion.PressScale.Standard}" />
+            <Setter Property="motion:InteractionMotionBehavior.ShadowLevel" Value="{StaticResource Motion.Shadow.Subtle}" />
+        </Style>
+
+        <Style x:Key="FieldVisibilityStyle" TargetType="{x:Type FrameworkElement}">
+            <Setter Property="Visibility" Value="Collapsed" />
+        </Style>
+
+        <Style x:Key="TextFieldVisibilityStyle" TargetType="{x:Type FrameworkElement}" BasedOn="{StaticResource FieldVisibilityStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Kind}" Value="{x:Static models:SettingFieldKind.Text}">
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="IpFieldVisibilityStyle" TargetType="{x:Type FrameworkElement}" BasedOn="{StaticResource FieldVisibilityStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Kind}" Value="{x:Static models:SettingFieldKind.IpAddress}">
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="NumericFieldVisibilityStyle" TargetType="{x:Type FrameworkElement}" BasedOn="{StaticResource FieldVisibilityStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Kind}" Value="{x:Static models:SettingFieldKind.Numeric}">
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ToggleFieldVisibilityStyle" TargetType="{x:Type FrameworkElement}" BasedOn="{StaticResource FieldVisibilityStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Kind}" Value="{x:Static models:SettingFieldKind.Toggle}">
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="RadioFieldVisibilityStyle" TargetType="{x:Type FrameworkElement}" BasedOn="{StaticResource FieldVisibilityStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Kind}" Value="{x:Static models:SettingFieldKind.RadioGroup}">
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="PathFieldVisibilityStyle" TargetType="{x:Type FrameworkElement}" BasedOn="{StaticResource FieldVisibilityStyle}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Kind}" Value="{x:Static models:SettingFieldKind.PathPicker}">
+                    <Setter Property="Visibility" Value="Visible" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>
+    </UserControl.Resources>
+
+    <Border Padding="10,8"
+            BorderBrush="{DynamicResource Border.Subtle.Brush}"
+            BorderThickness="0,0,0,1"
+            Background="{DynamicResource Bg.Transparent.Brush}"
+            motion:InteractionMotionBehavior.IsMotionEnabled="True"
+            motion:InteractionMotionBehavior.HoverLift="{StaticResource Motion.Lift.Subtle}"
+            motion:InteractionMotionBehavior.PressScale="{StaticResource Motion.PressScale.Subtle}"
+            motion:InteractionMotionBehavior.ShadowLevel="0.35">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <TextBlock Text="{Binding Label, Mode=OneWay}"
+                           FontSize="{StaticResource Font.Size.Meta}"
+                           FontWeight="Normal"
+                           TextWrapping="Wrap"
+                           TextTrimming="CharacterEllipsis"
+                           Foreground="{DynamicResource Text.Primary.Brush}" />
+                <TextBlock Text="{Binding Description, Mode=OneWay}"
+                           Margin="0,3,12,0"
+                           FontSize="{StaticResource Font.Size.Caption}"
+                           TextWrapping="Wrap"
+                           MaxHeight="34"
+                           Foreground="{DynamicResource Text.Tertiary.Brush}" />
+            </StackPanel>
+
+            <StackPanel Grid.Column="1" MinWidth="0">
+                <DockPanel LastChildFill="False">
+                    <TextBox Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource 系统设置InputStyle}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Kind}" Value="{x:Static models:SettingFieldKind.Text}">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+
+                    <TextBox Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource 系统设置InputStyle}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Kind}" Value="{x:Static models:SettingFieldKind.IpAddress}">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+
+                    <TextBox Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             FontFamily="{StaticResource Font.Mono}">
+                        <TextBox.Style>
+                            <Style TargetType="{x:Type TextBox}" BasedOn="{StaticResource 系统设置InputStyle}">
+                                <Setter Property="Visibility" Value="Collapsed" />
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding Kind}" Value="{x:Static models:SettingFieldKind.Numeric}">
+                                        <Setter Property="Visibility" Value="Visible" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBox.Style>
+                    </TextBox>
+
+                    <CheckBox IsChecked="{Binding BooleanValue, Mode=TwoWay}"
+                              Content="启用"
+                              VerticalAlignment="Center"
+                              FontSize="{StaticResource Font.Size.Meta}"
+                              Foreground="{DynamicResource Text.Secondary.Brush}"
+                              Style="{StaticResource ToggleFieldVisibilityStyle}" />
+
+                    <ItemsControl ItemsSource="{Binding Options}"
+                                  Style="{StaticResource RadioFieldVisibilityStyle}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <StackPanel Orientation="Horizontal" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <RadioButton Content="{Binding Label, Mode=OneWay}"
+                                             IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                             FontSize="{StaticResource Font.Size.Meta}"
+                                             Foreground="{DynamicResource Text.Secondary.Brush}"
+                                             Margin="0,0,16,0" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <StackPanel Orientation="Horizontal"
+                                Style="{StaticResource PathFieldVisibilityStyle}">
+                        <TextBox Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="300"
+                                 Style="{StaticResource 系统设置InputStyle}" />
+                        <Button Content="选择..."
+                                Command="{Binding DataContext.SelectPathCommand, RelativeSource={RelativeSource AncestorType={x:Type pages:SettingsPage}}}"
+                                CommandParameter="{Binding}"
+                                Style="{StaticResource 系统设置PathButtonStyle}"
+                                Margin="8,0,0,0" />
+                    </StackPanel>
+
+                    <TextBlock Text="{Binding Unit, Mode=OneWay}"
+                               VerticalAlignment="Center"
+                               Margin="8,0,0,0"
+                               FontSize="{StaticResource Font.Size.Caption}"
+                               Foreground="{DynamicResource Text.Tertiary.Brush}" />
+                </DockPanel>
+
+                <TextBlock Text="{Binding ErrorText, Mode=OneWay}"
+                           Margin="0,4,0,0"
+                           FontSize="{StaticResource Font.Size.Caption}"
+                           Foreground="{DynamicResource Status.AlarmText.Brush}"
+                           Visibility="{Binding HasError, Converter={StaticResource BoolToVisibilityConverter}}" />
+            </StackPanel>
+        </Grid>
+    </Border>
+</UserControl>
+
+
+
+

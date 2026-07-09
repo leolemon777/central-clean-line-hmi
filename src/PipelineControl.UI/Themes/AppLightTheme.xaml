@@ -1,0 +1,83 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Color x:Key="Bg.Transparent">#00FFFFFF</Color>
+    <Color x:Key="Bg.Page">#FAF7F0</Color>
+    <Color x:Key="Bg.Surface">#FAF7F0</Color>
+    <Color x:Key="Bg.Card">#FFFFFF</Color>
+    <Color x:Key="Bg.Hover">#F1EFE8</Color>
+    <Color x:Key="Bg.StationHover">#EFEAD8</Color>
+    <Color x:Key="Bg.ModalScrim">#66000000</Color>
+    <Color x:Key="Kpi.Track">#F0EBD9</Color>
+
+    <Color x:Key="Text.Primary">#2C2C2A</Color>
+    <Color x:Key="Text.Secondary">#4F4E49</Color>
+    <Color x:Key="Text.Tertiary">#6E6D66</Color>
+    <Color x:Key="Text.Accent">#B07050</Color>
+    <Color x:Key="Text.OnSelected">#FAF7F0</Color>
+    <Color x:Key="Text.White">#FFFFFF</Color>
+    <Color x:Key="Text.Idle">#444441</Color>
+
+    <Color x:Key="Border.Default">#E5DFD3</Color>
+    <Color x:Key="Border.Subtle">#F0EBD9</Color>
+    <Color x:Key="Border.Strong">#D3D1C7</Color>
+
+    <Color x:Key="Status.Running">#639922</Color>
+    <Color x:Key="Status.RunningBg">#EAF3DE</Color>
+    <Color x:Key="Status.RunningBorder">#97C459</Color>
+    <Color x:Key="Status.Warning">#EF9F27</Color>
+    <Color x:Key="Status.WarningBg">#FAEEDA</Color>
+    <Color x:Key="Status.WarningText">#633806</Color>
+    <Color x:Key="Status.WarningText.Strong">#854F0B</Color>
+    <Color x:Key="Status.WarningText.Dark">#412402</Color>
+    <Color x:Key="Status.Danger">#D85A30</Color>
+    <Color x:Key="Status.DangerBg">#FAECE7</Color>
+    <Color x:Key="Status.CriticalBg">#FCEBEB</Color>
+    <Color x:Key="Status.CriticalBorder">#F09595</Color>
+    <Color x:Key="Status.Neutral">#E8E3D2</Color>
+    <Color x:Key="Status.RunningText">#27500A</Color>
+    <Color x:Key="Status.RunningText.Strong">#3B6D11</Color>
+    <Color x:Key="Status.IdleBg">#F1EFE8</Color>
+    <Color x:Key="Status.AlarmText">#791F1F</Color>
+    <Color x:Key="Quality.Warning">#EF9F27</Color>
+
+    <Color x:Key="Alarm.Critical">#D85A30</Color>
+    <Color x:Key="Alarm.CriticalBg">#FAECE7</Color>
+    <Color x:Key="Alarm.CriticalBorder">#F09595</Color>
+    <Color x:Key="Alarm.CriticalText">#791F1F</Color>
+    <Color x:Key="Alarm.Warning">#EF9F27</Color>
+    <Color x:Key="Alarm.WarningBg">#FAEEDA</Color>
+    <Color x:Key="Alarm.WarningBorder">#EF9F27</Color>
+    <Color x:Key="Alarm.WarningText">#854F0B</Color>
+    <Color x:Key="Alarm.WarningTextDark">#412402</Color>
+    <Color x:Key="Alarm.Info">#888780</Color>
+    <Color x:Key="Alarm.InfoBg">#F1EFE8</Color>
+    <Color x:Key="Alarm.InfoBorder">#D3D1C7</Color>
+    <Color x:Key="Alarm.InfoText">#5F5E5A</Color>
+    <Color x:Key="Alarm.AckGreen">#97C459</Color>
+
+    <Color x:Key="Io.InputOn">#639922</Color>
+    <Color x:Key="Io.OutputOn">#D85A30</Color>
+    <Color x:Key="Io.Off">#E8E3D2</Color>
+    <Color x:Key="Io.SelectionOutline">#2C2C2A</Color>
+    <Color x:Key="Io.ForcedAccent">#B07050</Color>
+    <Color x:Key="Io.RisingEdge">#3B6D11</Color>
+    <Color x:Key="Io.FallingEdge">#5F5E5A</Color>
+    <Color x:Key="Io.InputOnHover">#54851B</Color>
+    <Color x:Key="Io.OutputOnHover">#BF4F2B</Color>
+    <Color x:Key="Io.OffHover">#DCD5C2</Color>
+
+    <Color x:Key="Recipe.ActiveBg">#EAF3DE</Color>
+    <Color x:Key="Recipe.ActiveBorder">#97C459</Color>
+    <Color x:Key="Recipe.ActiveText">#27500A</Color>
+    <Color x:Key="Recipe.DraftBg">#FAEEDA</Color>
+    <Color x:Key="Recipe.DraftText">#854F0B</Color>
+    <Color x:Key="Recipe.AttentionBg">#FAEEDA</Color>
+    <Color x:Key="Recipe.AttentionBorder">#EF9F27</Color>
+    <Color x:Key="Recipe.AttentionText">#854F0B</Color>
+    <Color x:Key="Recipe.SelectedBg">#F5F0E2</Color>
+    <Color x:Key="Recipe.InputInvalidBorder">#D85A30</Color>
+
+    <Color x:Key="Brand.Primary">#B55335</Color>
+    <Color x:Key="Brand.OnPrimary">#FFFFFF</Color>
+    <Color x:Key="Brand.Accent">#D85A30</Color>
+</ResourceDictionary>

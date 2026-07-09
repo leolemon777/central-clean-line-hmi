@@ -1,0 +1,29 @@
+# Build outputs
+bin/
+obj/
+TestResults/
+
+# Visual Studio / local IDE state
+.vs/
+*.user
+*.suo
+*.rsuser
+*.sdf
+*.opensdf
+*.VC.db
+ipch/
+
+# Local runtime files
+logs/
+*.log
+run_output.txt
+temp_run.txt
+appsettings.local.json
+
+# Generated or scratch folders
+tmp/
+deploy/
+
+# Keep source-side deploy helper scripts under src/PipelineControl.UI/Deploy tracked.
+!src/PipelineControl.UI/Deploy/
+!src/PipelineControl.UI/Deploy/**

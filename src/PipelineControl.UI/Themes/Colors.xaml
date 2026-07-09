@@ -1,0 +1,168 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:po="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options">
+    <Color x:Key="Bg.Transparent">#00FFFFFF</Color>
+    <Color x:Key="Bg.Page">#FAF7F0</Color>
+    <Color x:Key="Bg.Surface">#FAF7F0</Color>
+    <Color x:Key="Bg.Card">#FFFFFF</Color>
+    <Color x:Key="Bg.Hover">#F1EFE8</Color>
+    <Color x:Key="Bg.StationHover">#EFEAD8</Color>
+    <Color x:Key="Bg.ModalScrim">#66000000</Color>
+    <Color x:Key="Kpi.Track">#F0EBD9</Color>
+
+    <Color x:Key="Text.Primary">#2C2C2A</Color>
+    <Color x:Key="Text.Secondary">#4F4E49</Color>
+    <Color x:Key="Text.Tertiary">#6E6D66</Color>
+    <Color x:Key="Text.Accent">#B07050</Color>
+    <Color x:Key="Text.OnSelected">#FAF7F0</Color>
+    <Color x:Key="Text.White">#FFFFFF</Color>
+    <Color x:Key="Text.Idle">#444441</Color>
+
+    <Color x:Key="Border.Default">#E5DFD3</Color>
+    <Color x:Key="Border.Subtle">#F0EBD9</Color>
+    <Color x:Key="Border.Strong">#D3D1C7</Color>
+
+    <Color x:Key="Status.Running">#639922</Color>
+    <Color x:Key="Status.RunningBg">#EAF3DE</Color>
+    <Color x:Key="Status.RunningBorder">#97C459</Color>
+    <Color x:Key="Status.Warning">#EF9F27</Color>
+    <Color x:Key="Status.WarningBg">#FAEEDA</Color>
+    <Color x:Key="Status.WarningText">#633806</Color>
+    <Color x:Key="Status.WarningText.Strong">#854F0B</Color>
+    <Color x:Key="Status.WarningText.Dark">#412402</Color>
+    <Color x:Key="Status.Danger">#D85A30</Color>
+    <Color x:Key="Status.DangerBg">#FAECE7</Color>
+    <Color x:Key="Status.CriticalBg">#FCEBEB</Color>
+    <Color x:Key="Status.CriticalBorder">#F09595</Color>
+    <Color x:Key="Status.Neutral">#E8E3D2</Color>
+    <Color x:Key="Status.RunningText">#27500A</Color>
+    <Color x:Key="Status.RunningText.Strong">#3B6D11</Color>
+    <Color x:Key="Status.IdleBg">#F1EFE8</Color>
+    <Color x:Key="Status.AlarmText">#791F1F</Color>
+    <Color x:Key="Quality.Warning">#EF9F27</Color>
+
+    <Color x:Key="Alarm.Critical">#D85A30</Color>
+    <Color x:Key="Alarm.CriticalBg">#FAECE7</Color>
+    <Color x:Key="Alarm.CriticalBorder">#F09595</Color>
+    <Color x:Key="Alarm.CriticalText">#791F1F</Color>
+    <Color x:Key="Alarm.Warning">#EF9F27</Color>
+    <Color x:Key="Alarm.WarningBg">#FAEEDA</Color>
+    <Color x:Key="Alarm.WarningBorder">#EF9F27</Color>
+    <Color x:Key="Alarm.WarningText">#854F0B</Color>
+    <Color x:Key="Alarm.WarningTextDark">#412402</Color>
+    <Color x:Key="Alarm.Info">#888780</Color>
+    <Color x:Key="Alarm.InfoBg">#F1EFE8</Color>
+    <Color x:Key="Alarm.InfoBorder">#D3D1C7</Color>
+    <Color x:Key="Alarm.InfoText">#5F5E5A</Color>
+    <Color x:Key="Alarm.AckGreen">#97C459</Color>
+
+    <Color x:Key="Io.InputOn">#639922</Color>
+    <Color x:Key="Io.OutputOn">#D85A30</Color>
+    <Color x:Key="Io.Off">#E8E3D2</Color>
+    <Color x:Key="Io.SelectionOutline">#2C2C2A</Color>
+    <Color x:Key="Io.ForcedAccent">#B07050</Color>
+    <Color x:Key="Io.RisingEdge">#3B6D11</Color>
+    <Color x:Key="Io.FallingEdge">#5F5E5A</Color>
+    <Color x:Key="Io.InputOnHover">#54851B</Color>
+    <Color x:Key="Io.OutputOnHover">#BF4F2B</Color>
+    <Color x:Key="Io.OffHover">#DCD5C2</Color>
+
+    <Color x:Key="Recipe.ActiveBg">#EAF3DE</Color>
+    <Color x:Key="Recipe.ActiveBorder">#97C459</Color>
+    <Color x:Key="Recipe.ActiveText">#27500A</Color>
+    <Color x:Key="Recipe.DraftBg">#FAEEDA</Color>
+    <Color x:Key="Recipe.DraftText">#854F0B</Color>
+    <Color x:Key="Recipe.AttentionBg">#FAEEDA</Color>
+    <Color x:Key="Recipe.AttentionBorder">#EF9F27</Color>
+    <Color x:Key="Recipe.AttentionText">#854F0B</Color>
+    <Color x:Key="Recipe.SelectedBg">#F5F0E2</Color>
+    <Color x:Key="Recipe.InputInvalidBorder">#D85A30</Color>
+
+    <Color x:Key="Brand.Primary">#B55335</Color>
+    <Color x:Key="Brand.OnPrimary">#FFFFFF</Color>
+    <Color x:Key="Brand.Accent">#D85A30</Color>
+
+    <SolidColorBrush po:Freeze="False" x:Key="Bg.Transparent.Brush" Color="{StaticResource Bg.Transparent}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Bg.Page.Brush" Color="{StaticResource Bg.Page}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Bg.Surface.Brush" Color="{StaticResource Bg.Surface}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Bg.Card.Brush" Color="{StaticResource Bg.Card}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Bg.Hover.Brush" Color="{StaticResource Bg.Hover}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Bg.StationHover.Brush" Color="{StaticResource Bg.StationHover}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Bg.ModalScrim.Brush" Color="{StaticResource Bg.ModalScrim}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Kpi.Track.Brush" Color="{StaticResource Kpi.Track}" />
+
+    <SolidColorBrush po:Freeze="False" x:Key="Text.Primary.Brush" Color="{StaticResource Text.Primary}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Text.Secondary.Brush" Color="{StaticResource Text.Secondary}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Text.Tertiary.Brush" Color="{StaticResource Text.Tertiary}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Text.Accent.Brush" Color="{StaticResource Text.Accent}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Text.OnSelected.Brush" Color="{StaticResource Text.OnSelected}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Text.White.Brush" Color="{StaticResource Text.White}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Text.Idle.Brush" Color="{StaticResource Text.Idle}" />
+
+    <SolidColorBrush po:Freeze="False" x:Key="Border.Default.Brush" Color="{StaticResource Border.Default}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Border.Subtle.Brush" Color="{StaticResource Border.Subtle}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Border.Strong.Brush" Color="{StaticResource Border.Strong}" />
+
+    <SolidColorBrush po:Freeze="False" x:Key="Status.Running.Brush" Color="{StaticResource Status.Running}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Status.RunningBg.Brush" Color="{StaticResource Status.RunningBg}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Status.RunningBorder.Brush" Color="{StaticResource Status.RunningBorder}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Status.Warning.Brush" Color="{StaticResource Status.Warning}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Status.WarningBg.Brush" Color="{StaticResource Status.WarningBg}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Status.WarningText.Brush" Color="{StaticResource Status.WarningText}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Status.WarningText.Strong.Brush" Color="{StaticResource Status.WarningText.Strong}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Status.WarningText.Dark.Brush" Color="{StaticResource Status.WarningText.Dark}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Status.Danger.Brush" Color="{StaticResource Status.Danger}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Status.DangerBg.Brush" Color="{StaticResource Status.DangerBg}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Status.CriticalBg.Brush" Color="{StaticResource Status.CriticalBg}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Status.CriticalBorder.Brush" Color="{StaticResource Status.CriticalBorder}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Status.Neutral.Brush" Color="{StaticResource Status.Neutral}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Status.RunningText.Brush" Color="{StaticResource Status.RunningText}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Status.RunningText.Strong.Brush" Color="{StaticResource Status.RunningText.Strong}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Status.IdleBg.Brush" Color="{StaticResource Status.IdleBg}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Status.AlarmText.Brush" Color="{StaticResource Status.AlarmText}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Quality.Warning.Brush" Color="{StaticResource Quality.Warning}" />
+
+    <SolidColorBrush po:Freeze="False" x:Key="Alarm.Critical.Brush" Color="{StaticResource Alarm.Critical}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Alarm.CriticalBg.Brush" Color="{StaticResource Alarm.CriticalBg}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Alarm.CriticalBorder.Brush" Color="{StaticResource Alarm.CriticalBorder}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Alarm.CriticalText.Brush" Color="{StaticResource Alarm.CriticalText}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Alarm.Warning.Brush" Color="{StaticResource Alarm.Warning}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Alarm.WarningBg.Brush" Color="{StaticResource Alarm.WarningBg}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Alarm.WarningBorder.Brush" Color="{StaticResource Alarm.WarningBorder}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Alarm.WarningText.Brush" Color="{StaticResource Alarm.WarningText}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Alarm.WarningTextDark.Brush" Color="{StaticResource Alarm.WarningTextDark}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Alarm.Info.Brush" Color="{StaticResource Alarm.Info}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Alarm.InfoBg.Brush" Color="{StaticResource Alarm.InfoBg}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Alarm.InfoBorder.Brush" Color="{StaticResource Alarm.InfoBorder}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Alarm.InfoText.Brush" Color="{StaticResource Alarm.InfoText}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Alarm.AckGreen.Brush" Color="{StaticResource Alarm.AckGreen}" />
+
+    <SolidColorBrush po:Freeze="False" x:Key="Io.InputOn.Brush" Color="{StaticResource Io.InputOn}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Io.OutputOn.Brush" Color="{StaticResource Io.OutputOn}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Io.Off.Brush" Color="{StaticResource Io.Off}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Io.SelectionOutline.Brush" Color="{StaticResource Io.SelectionOutline}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Io.ForcedAccent.Brush" Color="{StaticResource Io.ForcedAccent}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Io.RisingEdge.Brush" Color="{StaticResource Io.RisingEdge}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Io.FallingEdge.Brush" Color="{StaticResource Io.FallingEdge}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Io.InputOnHover.Brush" Color="{StaticResource Io.InputOnHover}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Io.OutputOnHover.Brush" Color="{StaticResource Io.OutputOnHover}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Io.OffHover.Brush" Color="{StaticResource Io.OffHover}" />
+
+    <SolidColorBrush po:Freeze="False" x:Key="Recipe.ActiveBg.Brush" Color="{StaticResource Recipe.ActiveBg}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Recipe.ActiveBorder.Brush" Color="{StaticResource Recipe.ActiveBorder}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Recipe.ActiveText.Brush" Color="{StaticResource Recipe.ActiveText}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Recipe.DraftBg.Brush" Color="{StaticResource Recipe.DraftBg}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Recipe.DraftText.Brush" Color="{StaticResource Recipe.DraftText}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Recipe.AttentionBg.Brush" Color="{StaticResource Recipe.AttentionBg}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Recipe.AttentionBorder.Brush" Color="{StaticResource Recipe.AttentionBorder}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Recipe.AttentionText.Brush" Color="{StaticResource Recipe.AttentionText}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Recipe.SelectedBg.Brush" Color="{StaticResource Recipe.SelectedBg}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Recipe.InputInvalidBorder.Brush" Color="{StaticResource Recipe.InputInvalidBorder}" />
+
+    <SolidColorBrush po:Freeze="False" x:Key="Brand.Primary.Brush" Color="{StaticResource Brand.Primary}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Brand.OnPrimary.Brush" Color="{StaticResource Brand.OnPrimary}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Brand.Accent.Brush" Color="{StaticResource Brand.Accent}" />
+    <SolidColorBrush po:Freeze="False" x:Key="Brand.SelectedBg.Brush" Color="{StaticResource Brand.Primary}" Opacity="0.08" />
+    <SolidColorBrush po:Freeze="False" x:Key="Brand.SelectedHoverBg.Brush" Color="{StaticResource Brand.Primary}" Opacity="0.16" />
+</ResourceDictionary>
+

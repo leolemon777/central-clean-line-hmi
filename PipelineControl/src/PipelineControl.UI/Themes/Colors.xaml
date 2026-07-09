@@ -1,0 +1,145 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <!-- 背景 -->
+  <Color x:Key="Bg.Page">#FAF7F0</Color>
+  <Color x:Key="Bg.Surface">#F5F0E2</Color>
+  <Color x:Key="Bg.Card">#FFFFFF</Color>
+  <Color x:Key="Bg.Hover">#EFEAD8</Color>
+
+  <!-- 文字 -->
+  <Color x:Key="Text.Primary">#2C2C2A</Color>
+  <Color x:Key="Text.Secondary">#5F5E5A</Color>
+  <Color x:Key="Text.Tertiary">#888780</Color>
+  <Color x:Key="Text.Accent">#B07050</Color>
+
+  <!-- 边线 -->
+  <Color x:Key="Border.Default">#E5DFD3</Color>
+  <Color x:Key="Border.Subtle">#F0EBD9</Color>
+  <Color x:Key="Border.Strong">#D3D1C7</Color>
+
+  <!-- 状态 -->
+  <Color x:Key="Status.Running">#639922</Color>
+  <Color x:Key="Status.RunningBg">#EAF3DE</Color>
+  <Color x:Key="Status.RunningBorder">#97C459</Color>
+  <Color x:Key="Status.RunningText">#27500A</Color>
+  <Color x:Key="Status.Warning">#EF9F27</Color>
+  <Color x:Key="Status.WarningBg">#FAEEDA</Color>
+  <Color x:Key="Status.WarningText">#854F0B</Color>
+  <Color x:Key="Status.WarningTextDark">#412402</Color>
+  <Color x:Key="Status.Danger">#D85A30</Color>
+  <Color x:Key="Status.DangerBg">#FAECE7</Color>
+  <Color x:Key="Status.DangerBorder">#F09595</Color>
+  <Color x:Key="Status.DangerText">#791F1F</Color>
+  <Color x:Key="Status.Neutral">#E8E3D2</Color>
+  <Color x:Key="Status.NeutralText">#444441</Color>
+
+  <!-- 品牌 -->
+  <Color x:Key="Brand.Primary">#2C2C2A</Color>
+  <Color x:Key="Brand.OnPrimary">#F5C4B3</Color>
+  <Color x:Key="Brand.Accent">#D85A30</Color>
+
+  <!-- IO 专用（P04 用） -->
+  <Color x:Key="Io.InputOn">#639922</Color>
+  <Color x:Key="Io.OutputOn">#D85A30</Color>
+  <Color x:Key="Io.Off">#E8E3D2</Color>
+  <Color x:Key="Io.SelectionOutline">#2C2C2A</Color>
+  <Color x:Key="Io.ForcedAccent">#B07050</Color>
+  <Color x:Key="Io.RisingEdge">#3B6D11</Color>
+  <Color x:Key="Io.FallingEdge">#5F5E5A</Color>
+
+  <!-- 报警专用（P07 P08 用） -->
+  <Color x:Key="Alarm.Critical">#D85A30</Color>
+  <Color x:Key="Alarm.CriticalBg">#FAECE7</Color>
+  <Color x:Key="Alarm.CriticalBorder">#F09595</Color>
+  <Color x:Key="Alarm.CriticalText">#791F1F</Color>
+  <Color x:Key="Alarm.Warning">#EF9F27</Color>
+  <Color x:Key="Alarm.WarningBg">#FAEEDA</Color>
+  <Color x:Key="Alarm.WarningBorder">#EF9F27</Color>
+  <Color x:Key="Alarm.WarningText">#854F0B</Color>
+  <Color x:Key="Alarm.WarningTextDark">#412402</Color>
+  <Color x:Key="Alarm.Info">#888780</Color>
+  <Color x:Key="Alarm.InfoBg">#F1EFE8</Color>
+  <Color x:Key="Alarm.InfoBorder">#D3D1C7</Color>
+  <Color x:Key="Alarm.InfoText">#5F5E5A</Color>
+  <Color x:Key="Alarm.AckGreen">#97C459</Color>
+
+  <!-- 配方专用（P11 用） -->
+  <Color x:Key="Recipe.ActiveBg">#EAF3DE</Color>
+  <Color x:Key="Recipe.ActiveBorder">#97C459</Color>
+  <Color x:Key="Recipe.ActiveText">#27500A</Color>
+  <Color x:Key="Recipe.DraftBg">#FAEEDA</Color>
+  <Color x:Key="Recipe.DraftText">#854F0B</Color>
+  <Color x:Key="Recipe.AttentionBg">#FAEEDA</Color>
+  <Color x:Key="Recipe.AttentionBorder">#EF9F27</Color>
+  <Color x:Key="Recipe.AttentionText">#854F0B</Color>
+
+  <!-- KPI 专用（P03 用） -->
+  <Color x:Key="Kpi.Track">#F0EBD9</Color>
+
+  <SolidColorBrush x:Key="Bg.PageBrush" Color="{StaticResource Bg.Page}" />
+  <SolidColorBrush x:Key="Bg.SurfaceBrush" Color="{StaticResource Bg.Surface}" />
+  <SolidColorBrush x:Key="Bg.CardBrush" Color="{StaticResource Bg.Card}" />
+  <SolidColorBrush x:Key="Bg.HoverBrush" Color="{StaticResource Bg.Hover}" />
+
+  <SolidColorBrush x:Key="Text.PrimaryBrush" Color="{StaticResource Text.Primary}" />
+  <SolidColorBrush x:Key="Text.SecondaryBrush" Color="{StaticResource Text.Secondary}" />
+  <SolidColorBrush x:Key="Text.TertiaryBrush" Color="{StaticResource Text.Tertiary}" />
+  <SolidColorBrush x:Key="Text.AccentBrush" Color="{StaticResource Text.Accent}" />
+
+  <SolidColorBrush x:Key="Border.DefaultBrush" Color="{StaticResource Border.Default}" />
+  <SolidColorBrush x:Key="Border.SubtleBrush" Color="{StaticResource Border.Subtle}" />
+  <SolidColorBrush x:Key="Border.StrongBrush" Color="{StaticResource Border.Strong}" />
+
+  <SolidColorBrush x:Key="Status.RunningBrush" Color="{StaticResource Status.Running}" />
+  <SolidColorBrush x:Key="Status.RunningBgBrush" Color="{StaticResource Status.RunningBg}" />
+  <SolidColorBrush x:Key="Status.RunningBorderBrush" Color="{StaticResource Status.RunningBorder}" />
+  <SolidColorBrush x:Key="Status.RunningTextBrush" Color="{StaticResource Status.RunningText}" />
+  <SolidColorBrush x:Key="Status.WarningBrush" Color="{StaticResource Status.Warning}" />
+  <SolidColorBrush x:Key="Status.WarningBgBrush" Color="{StaticResource Status.WarningBg}" />
+  <SolidColorBrush x:Key="Status.WarningTextBrush" Color="{StaticResource Status.WarningText}" />
+  <SolidColorBrush x:Key="Status.WarningTextDarkBrush" Color="{StaticResource Status.WarningTextDark}" />
+  <SolidColorBrush x:Key="Status.DangerBrush" Color="{StaticResource Status.Danger}" />
+  <SolidColorBrush x:Key="Status.DangerBgBrush" Color="{StaticResource Status.DangerBg}" />
+  <SolidColorBrush x:Key="Status.DangerBorderBrush" Color="{StaticResource Status.DangerBorder}" />
+  <SolidColorBrush x:Key="Status.DangerTextBrush" Color="{StaticResource Status.DangerText}" />
+  <SolidColorBrush x:Key="Status.NeutralBrush" Color="{StaticResource Status.Neutral}" />
+  <SolidColorBrush x:Key="Status.NeutralTextBrush" Color="{StaticResource Status.NeutralText}" />
+
+  <SolidColorBrush x:Key="Brand.PrimaryBrush" Color="{StaticResource Brand.Primary}" />
+  <SolidColorBrush x:Key="Brand.OnPrimaryBrush" Color="{StaticResource Brand.OnPrimary}" />
+  <SolidColorBrush x:Key="Brand.AccentBrush" Color="{StaticResource Brand.Accent}" />
+
+  <SolidColorBrush x:Key="Io.InputOnBrush" Color="{StaticResource Io.InputOn}" />
+  <SolidColorBrush x:Key="Io.OutputOnBrush" Color="{StaticResource Io.OutputOn}" />
+  <SolidColorBrush x:Key="Io.OffBrush" Color="{StaticResource Io.Off}" />
+  <SolidColorBrush x:Key="Io.SelectionOutlineBrush" Color="{StaticResource Io.SelectionOutline}" />
+  <SolidColorBrush x:Key="Io.ForcedAccentBrush" Color="{StaticResource Io.ForcedAccent}" />
+  <SolidColorBrush x:Key="Io.RisingEdgeBrush" Color="{StaticResource Io.RisingEdge}" />
+  <SolidColorBrush x:Key="Io.FallingEdgeBrush" Color="{StaticResource Io.FallingEdge}" />
+
+  <SolidColorBrush x:Key="Alarm.CriticalBrush" Color="{StaticResource Alarm.Critical}" />
+  <SolidColorBrush x:Key="Alarm.CriticalBgBrush" Color="{StaticResource Alarm.CriticalBg}" />
+  <SolidColorBrush x:Key="Alarm.CriticalBorderBrush" Color="{StaticResource Alarm.CriticalBorder}" />
+  <SolidColorBrush x:Key="Alarm.CriticalTextBrush" Color="{StaticResource Alarm.CriticalText}" />
+  <SolidColorBrush x:Key="Alarm.WarningBrush" Color="{StaticResource Alarm.Warning}" />
+  <SolidColorBrush x:Key="Alarm.WarningBgBrush" Color="{StaticResource Alarm.WarningBg}" />
+  <SolidColorBrush x:Key="Alarm.WarningBorderBrush" Color="{StaticResource Alarm.WarningBorder}" />
+  <SolidColorBrush x:Key="Alarm.WarningTextBrush" Color="{StaticResource Alarm.WarningText}" />
+  <SolidColorBrush x:Key="Alarm.WarningTextDarkBrush" Color="{StaticResource Alarm.WarningTextDark}" />
+  <SolidColorBrush x:Key="Alarm.InfoBrush" Color="{StaticResource Alarm.Info}" />
+  <SolidColorBrush x:Key="Alarm.InfoBgBrush" Color="{StaticResource Alarm.InfoBg}" />
+  <SolidColorBrush x:Key="Alarm.InfoBorderBrush" Color="{StaticResource Alarm.InfoBorder}" />
+  <SolidColorBrush x:Key="Alarm.InfoTextBrush" Color="{StaticResource Alarm.InfoText}" />
+  <SolidColorBrush x:Key="Alarm.AckGreenBrush" Color="{StaticResource Alarm.AckGreen}" />
+
+  <SolidColorBrush x:Key="Recipe.ActiveBgBrush" Color="{StaticResource Recipe.ActiveBg}" />
+  <SolidColorBrush x:Key="Recipe.ActiveBorderBrush" Color="{StaticResource Recipe.ActiveBorder}" />
+  <SolidColorBrush x:Key="Recipe.ActiveTextBrush" Color="{StaticResource Recipe.ActiveText}" />
+  <SolidColorBrush x:Key="Recipe.DraftBgBrush" Color="{StaticResource Recipe.DraftBg}" />
+  <SolidColorBrush x:Key="Recipe.DraftTextBrush" Color="{StaticResource Recipe.DraftText}" />
+  <SolidColorBrush x:Key="Recipe.AttentionBgBrush" Color="{StaticResource Recipe.AttentionBg}" />
+  <SolidColorBrush x:Key="Recipe.AttentionBorderBrush" Color="{StaticResource Recipe.AttentionBorder}" />
+  <SolidColorBrush x:Key="Recipe.AttentionTextBrush" Color="{StaticResource Recipe.AttentionText}" />
+
+  <SolidColorBrush x:Key="Kpi.TrackBrush" Color="{StaticResource Kpi.Track}" />
+</ResourceDictionary>

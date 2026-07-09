@@ -1,0 +1,222 @@
+<UserControl x:Class="PipelineControl.UI.Views.Pages.Settings.SettingsPage"
+             FontFamily="{StaticResource Font.Chinese}"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:PipelineControl.UI.Views.Pages.Settings.Controls"
+             xmlns:converters="clr-namespace:PipelineControl.UI.Views.Common.Converters">
+    <UserControl.Resources>
+        <converters:BooleanToVisibilityConverter x:Key="BoolToVisibilityConverter" />
+
+        <Style x:Key="ConfigButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Padding" Value="15,8" />
+            <Setter Property="FontSize" Value="{StaticResource Font.Size.Meta}" />
+            <Setter Property="MinHeight" Value="38" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="ButtonBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <Grid ClipToBounds="True">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  TextElement.Foreground="{TemplateBinding Foreground}"
+                                                  Style="{StaticResource ButtonTemplateContentPresenterStyle}" />
+                                <Border x:Name="ShineBorder" IsHitTestVisible="False" CornerRadius="6" Margin="-15,-8">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="-1.5,0" EndPoint="-0.5,0">
+                                            <GradientStop Color="#00FFFFFF" Offset="0" />
+                                            <GradientStop Color="#4CFFFFFF" Offset="0.5" />
+                                            <GradientStop Color="#00FFFFFF" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard x:Name="ShineStoryboard">
+                                        <Storyboard>
+                                            <PointAnimation Storyboard.TargetName="ShineBorder"
+                                                            Storyboard.TargetProperty="Background.(LinearGradientBrush.StartPoint)"
+                                                            From="-1.5,0" To="1.5,0"
+                                                            Duration="0:0:0.65" />
+                                            <PointAnimation Storyboard.TargetName="ShineBorder"
+                                                            Storyboard.TargetProperty="Background.(LinearGradientBrush.EndPoint)"
+                                                            From="-0.5,0" To="2.5,0"
+                                                            Duration="0:0:0.65" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <RemoveStoryboard BeginStoryboardName="ShineStoryboard" />
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.45" />
+                    <Setter Property="Cursor" Value="Arrow" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ConfigPrimaryButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ConfigButtonStyle}">
+            <Setter Property="Background" Value="{DynamicResource Brand.Primary.Brush}" />
+            <Setter Property="Foreground" Value="{DynamicResource Brand.OnPrimary.Brush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Brand.Primary.Brush}" />
+        </Style>
+
+        <Style x:Key="ConfigSecondaryButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ConfigButtonStyle}">
+            <Setter Property="Background" Value="{DynamicResource Bg.Card.Brush}" />
+            <Setter Property="Foreground" Value="{DynamicResource Text.Secondary.Brush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Border.Strong.Brush}" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Bg.Page.Brush}">
+        <Border Padding="18,14">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="8" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="8" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0"
+                        BorderBrush="{DynamicResource Border.Default.Brush}"
+                        BorderThickness="0,0,0,1"
+                        Padding="0,0,0,8">
+                    <StackPanel>
+                        <TextBlock Text="通讯"
+                                   FontSize="{StaticResource Font.Size.Small}"
+                                   Foreground="{DynamicResource Text.Accent.Brush}" />
+                        <TextBlock Text="板卡参数"
+                                   Margin="0,3,0,0"
+                                   FontFamily="{StaticResource Font.Chinese}"
+                                   FontSize="{StaticResource Font.Size.PageTitle}"
+                                   Foreground="{DynamicResource Text.Primary.Brush}" />
+                        <TextBlock Text="{Binding StatusText, Mode=OneWay}"
+                                   Margin="0,3,0,0"
+                                   FontSize="{StaticResource Font.Size.Meta}"
+                                   Foreground="{DynamicResource Text.Secondary.Brush}" />
+                    </StackPanel>
+                </Border>
+
+                <Border Grid.Row="2"
+                        Background="{DynamicResource Status.WarningBg.Brush}"
+                        BorderBrush="{DynamicResource Status.Warning.Brush}"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="12,8"
+                        Visibility="{Binding HasDirtyChanges, Converter={StaticResource BoolToVisibilityConverter}}">
+                    <TextBlock Text="{Binding DirtyBannerText, Mode=OneWay}"
+                               FontSize="{StaticResource Font.Size.Meta}"
+                               Foreground="{DynamicResource Status.WarningText.Strong.Brush}" />
+                </Border>
+
+                <Border Grid.Row="4"
+                        Background="{DynamicResource Bg.Card.Brush}"
+                        BorderBrush="{DynamicResource Border.Default.Brush}"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        Padding="8">
+                    <ItemsControl ItemsSource="{Binding Fields}">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <UniformGrid Columns="2" Rows="3" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
+                        <ItemsControl.ItemContainerStyle>
+                            <Style TargetType="{x:Type ContentPresenter}">
+                                <Setter Property="Margin" Value="0,0,8,8" />
+                            </Style>
+                        </ItemsControl.ItemContainerStyle>
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <controls:SettingRowView />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </Border>
+
+                <Border Grid.Row="5"
+                        BorderBrush="{DynamicResource Border.Subtle.Brush}"
+                        BorderThickness="0,1,0,0"
+                        Padding="0,8,0,0">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding RestartNoticeText, Mode=OneWay}"
+                                   FontSize="{StaticResource Font.Size.Caption}"
+                                   Foreground="{DynamicResource Status.AlarmText.Brush}"
+                                   VerticalAlignment="Center"
+                                   TextTrimming="CharacterEllipsis"
+                                   Margin="0,0,16,0" />
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                            <Button Content="默认"
+                                    Command="{Binding ResetToDefaultsCommand}"
+                                    Style="{StaticResource ConfigSecondaryButtonStyle}"
+                                    Margin="0,0,8,0" />
+                            <Button Content="撤销"
+                                    Command="{Binding DiscardCommand}"
+                                    Style="{StaticResource ConfigSecondaryButtonStyle}"
+                                    Margin="0,0,8,0" />
+                            <Button Content="保存"
+                                    Command="{Binding SaveCommand}"
+                                    Style="{StaticResource ConfigPrimaryButtonStyle}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+
+        <Grid Background="{DynamicResource Bg.ModalScrim.Brush}"
+              Visibility="{Binding IsConfirmationOpen, Converter={StaticResource BoolToVisibilityConverter}}">
+            <Border Width="420"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="{DynamicResource Bg.Card.Brush}"
+                    BorderBrush="{DynamicResource Border.Default.Brush}"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Padding="18">
+                <StackPanel>
+                    <TextBlock Text="{Binding ConfirmationTitle, Mode=OneWay}"
+                               FontFamily="{StaticResource Font.Chinese}"
+                               FontSize="{StaticResource Font.Size.Title}"
+                               Foreground="{DynamicResource Text.Primary.Brush}" />
+                    <TextBlock Text="{Binding ConfirmationText, Mode=OneWay}"
+                               Margin="0,10,0,18"
+                               TextWrapping="Wrap"
+                               LineHeight="21"
+                               FontSize="{StaticResource Font.Size.Meta}"
+                               Foreground="{DynamicResource Text.Secondary.Brush}" />
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="取消"
+                                Command="{Binding CancelPendingCommand}"
+                                Style="{StaticResource ConfigSecondaryButtonStyle}"
+                                Margin="0,0,8,0" />
+                        <Button Content="确认"
+                                Command="{Binding ConfirmPendingCommand}"
+                                Style="{StaticResource ConfigPrimaryButtonStyle}" />
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Grid>
+    </Grid>
+</UserControl>

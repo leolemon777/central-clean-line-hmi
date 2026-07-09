@@ -1,0 +1,10 @@
+bin/
+obj/
+*.user
+*.suo
+.vs/
+.idea/
+logs/
+*.db
+*.db-journal
+appsettings.local.json

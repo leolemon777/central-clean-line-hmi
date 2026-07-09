@@ -1,0 +1,20 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:Double x:Key="Motion.Duration.HoverMs">80</sys:Double>
+    <sys:Double x:Key="Motion.Duration.PressMs">35</sys:Double>
+    <sys:Double x:Key="Motion.Duration.PageEnterMs">120</sys:Double>
+    <sys:Double x:Key="Motion.Duration.FloatMs">140</sys:Double>
+
+    <sys:Double x:Key="Motion.Lift.Subtle">1</sys:Double>
+    <sys:Double x:Key="Motion.Lift.Standard">2</sys:Double>
+    <sys:Double x:Key="Motion.Lift.Strong">3</sys:Double>
+    <sys:Double x:Key="Motion.PressScale.Subtle">0.992</sys:Double>
+    <sys:Double x:Key="Motion.PressScale.Standard">0.982</sys:Double>
+    <sys:Double x:Key="Motion.Shadow.Subtle">0</sys:Double>
+    <sys:Double x:Key="Motion.Shadow.Standard">0</sys:Double>
+    <sys:Double x:Key="Motion.Shadow.Strong">0</sys:Double>
+
+    <QuadraticEase x:Key="Motion.Ease.QuickOut" EasingMode="EaseOut" />
+    <CubicEase x:Key="Motion.Ease.SoftOut" EasingMode="EaseOut" />
+</ResourceDictionary>

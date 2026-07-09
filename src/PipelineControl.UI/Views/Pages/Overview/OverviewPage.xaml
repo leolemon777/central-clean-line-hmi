@@ -1,0 +1,249 @@
+<UserControl x:Class="PipelineControl.UI.Views.Pages.Overview.OverviewPage"
+             FontFamily="{StaticResource Font.Chinese}"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             HorizontalAlignment="Stretch"
+             VerticalAlignment="Stretch">
+    <UserControl.Resources>
+        <Style x:Key="SummaryCardStyle" TargetType="{x:Type Border}">
+            <Setter Property="Background" Value="{DynamicResource Bg.Card.Brush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Border.Default.Brush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="CornerRadius" Value="8" />
+            <Setter Property="Padding" Value="18" />
+        </Style>
+
+        <Style x:Key="ActionButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="MinWidth" Value="132" />
+            <Setter Property="Height" Value="42" />
+            <Setter Property="Padding" Value="16,8" />
+            <Setter Property="FontSize" Value="{StaticResource Font.Size.Body}" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="ButtonBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6"
+                                Padding="{TemplateBinding Padding}">
+                            <Grid ClipToBounds="True">
+                                <ContentPresenter HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  TextElement.Foreground="{TemplateBinding Foreground}"
+                                                  Style="{StaticResource ButtonTemplateContentPresenterStyle}" />
+                                <Border x:Name="ShineBorder" IsHitTestVisible="False" CornerRadius="6" Margin="-16,-8">
+                                    <Border.Background>
+                                        <LinearGradientBrush StartPoint="-1.5,0" EndPoint="-0.5,0">
+                                            <GradientStop Color="#00FFFFFF" Offset="0" />
+                                            <GradientStop Color="#4CFFFFFF" Offset="0.5" />
+                                            <GradientStop Color="#00FFFFFF" Offset="1" />
+                                        </LinearGradientBrush>
+                                    </Border.Background>
+                                </Border>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard x:Name="ShineStoryboard">
+                                        <Storyboard>
+                                            <PointAnimation Storyboard.TargetName="ShineBorder"
+                                                            Storyboard.TargetProperty="Background.(LinearGradientBrush.StartPoint)"
+                                                            From="-1.5,0" To="1.5,0"
+                                                            Duration="0:0:0.65" />
+                                            <PointAnimation Storyboard.TargetName="ShineBorder"
+                                                            Storyboard.TargetProperty="Background.(LinearGradientBrush.EndPoint)"
+                                                            From="-0.5,0" To="2.5,0"
+                                                            Duration="0:0:0.65" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <RemoveStoryboard BeginStoryboardName="ShineStoryboard" />
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsEnabled" Value="False">
+                    <Setter Property="Opacity" Value="0.45" />
+                    <Setter Property="Cursor" Value="Arrow" />
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="PrimaryActionButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ActionButtonStyle}">
+            <Setter Property="Background" Value="{DynamicResource Brand.Primary.Brush}" />
+            <Setter Property="Foreground" Value="{DynamicResource Brand.OnPrimary.Brush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Brand.Primary.Brush}" />
+        </Style>
+
+        <Style x:Key="SecondaryActionButtonStyle" TargetType="{x:Type Button}" BasedOn="{StaticResource ActionButtonStyle}">
+            <Setter Property="Background" Value="{DynamicResource Bg.Card.Brush}" />
+            <Setter Property="Foreground" Value="{DynamicResource Text.Secondary.Brush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource Border.Strong.Brush}" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Background="{DynamicResource Bg.Page.Brush}">
+        <Border Padding="28,24">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="18" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="18" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0"
+                        BorderBrush="{DynamicResource Border.Default.Brush}"
+                        BorderThickness="0,0,0,1"
+                        Padding="0,0,0,16">
+                    <StackPanel>
+                        <TextBlock Text="总控"
+                                   FontSize="{StaticResource Font.Size.Small}"
+                                   Foreground="{DynamicResource Text.Accent.Brush}" />
+                        <TextBlock Text="中央净软线"
+                                   Margin="0,5,0,0"
+                                   FontFamily="{StaticResource Font.Chinese}"
+                                   FontSize="{StaticResource Font.Size.PageTitle}"
+                                   Foreground="{DynamicResource Text.Primary.Brush}" />
+                    </StackPanel>
+                </Border>
+
+                <Grid Grid.Row="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="16" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border Grid.Column="0" Style="{StaticResource SummaryCardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="运行状态"
+                                       FontSize="{StaticResource Font.Size.CardTitle}"
+                                       Foreground="{DynamicResource Text.Primary.Brush}" />
+                            <TextBlock Text="{Binding LineStateText, Mode=OneWay}"
+                                       Margin="0,10,0,0"
+                                       FontFamily="{StaticResource Font.Chinese}"
+                                       FontSize="{StaticResource Font.Size.OverviewHero}"
+                                       FontWeight="Bold">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="{DynamicResource Text.Secondary.Brush}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsRunning}" Value="True">
+                                                <Setter Property="Foreground" Value="{DynamicResource Status.Running.Brush}" />
+                                            </DataTrigger>
+                                            <DataTrigger Binding="{Binding IsFault}" Value="True">
+                                                <Setter Property="Foreground" Value="{DynamicResource Status.Danger.Brush}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <TextBlock Text="{Binding OperationMessage, Mode=OneWay}"
+                                       Margin="0,8,0,0"
+                                       FontSize="{StaticResource Font.Size.Meta}"
+                                       Foreground="{DynamicResource Text.Secondary.Brush}" />
+
+                            <StackPanel Orientation="Horizontal" Margin="0,18,0,0">
+                                <Button Content="自动开启"
+                                        Command="{Binding StartAutoCommand}"
+                                        Style="{StaticResource PrimaryActionButtonStyle}"
+                                        Margin="0,0,10,0" />
+                                <Button Content="自动关闭"
+                                        Command="{Binding StopAutoCommand}"
+                                        Style="{StaticResource SecondaryActionButtonStyle}" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Column="2" Style="{StaticResource SummaryCardStyle}">
+                        <StackPanel>
+                            <TextBlock Text="板卡通讯"
+                                       FontSize="{StaticResource Font.Size.CardTitle}"
+                                       Foreground="{DynamicResource Text.Primary.Brush}" />
+                            <TextBlock Text="{Binding CommunicationStatusText, Mode=OneWay}"
+                                       Margin="0,10,0,0"
+                                       FontSize="{StaticResource Font.Size.Body}"
+                                       FontWeight="Medium">
+                                <TextBlock.Style>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="{DynamicResource Status.Danger.Brush}" />
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsIoConnected}" Value="True">
+                                                <Setter Property="Foreground" Value="{DynamicResource Status.Running.Brush}" />
+                                            </DataTrigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </TextBlock.Style>
+                            </TextBlock>
+                            <Grid Margin="0,14,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="主卡 IP"
+                                           FontSize="{StaticResource Font.Size.Small}"
+                                           Foreground="{DynamicResource Text.Tertiary.Brush}" />
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding MainCardIp, Mode=OneWay}"
+                                           Margin="16,0,0,0"
+                                           FontFamily="{StaticResource Font.Mono}"
+                                           FontSize="{StaticResource Font.Size.Small}"
+                                           Foreground="{DynamicResource Text.Primary.Brush}" />
+                            </Grid>
+                            <Grid Margin="0,8,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="扫描周期"
+                                           FontSize="{StaticResource Font.Size.Small}"
+                                           Foreground="{DynamicResource Text.Tertiary.Brush}" />
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding ScanCycleMs, StringFormat={}{0:F0} ms, Mode=OneWay}"
+                                           Margin="16,0,0,0"
+                                           FontFamily="{StaticResource Font.Mono}"
+                                           FontSize="{StaticResource Font.Size.Small}"
+                                           Foreground="{DynamicResource Text.Primary.Brush}" />
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+                <Border Grid.Row="4" Style="{StaticResource SummaryCardStyle}">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0">
+                            <TextBlock Text="快捷操作"
+                                       FontSize="{StaticResource Font.Size.CardTitle}"
+                                       Foreground="{DynamicResource Text.Primary.Brush}" />
+                            <TextBlock Text="自动开启后持续控制线头/线尾升降；自动关闭会立即断开自动输出。"
+                                       Margin="0,8,0,0"
+                                       FontSize="{StaticResource Font.Size.Meta}"
+                                       Foreground="{DynamicResource Text.Secondary.Brush}" />
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                            <Button Content="进入 IO"
+                                    Command="{Binding OpenOutputTestCommand}"
+                                    Style="{StaticResource PrimaryActionButtonStyle}" />
+                        </StackPanel>
+                    </Grid>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

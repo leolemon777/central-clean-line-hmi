@@ -1,0 +1,31 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <FontFamily x:Key="Font.Sans">Aptos, Segoe UI Variable Text, Segoe UI, Microsoft YaHei UI, Microsoft YaHei, Arial</FontFamily>
+    <FontFamily x:Key="Font.Chinese">Microsoft YaHei UI, Microsoft YaHei, Segoe UI, Arial</FontFamily>
+    <FontFamily x:Key="Font.Serif">Aptos Display, Aptos, Segoe UI Variable Display, Segoe UI, Microsoft YaHei UI, Microsoft YaHei, Arial</FontFamily>
+    <FontFamily x:Key="Font.Mono">Cascadia Mono, Consolas, Microsoft YaHei UI, Microsoft YaHei, monospace</FontFamily>
+
+    <sys:Double x:Key="Font.Size.Micro">10</sys:Double>
+    <sys:Double x:Key="Font.Size.Caption">11</sys:Double>
+    <sys:Double x:Key="Font.Size.Small">12</sys:Double>
+    <sys:Double x:Key="Font.Size.Meta">13</sys:Double>
+    <sys:Double x:Key="Font.Size.Body">14</sys:Double>
+    <sys:Double x:Key="Font.Size.BrandTitle">15</sys:Double>
+    <sys:Double x:Key="Font.Size.Icon">16</sys:Double>
+    <sys:Double x:Key="Font.Size.Subtitle">16</sys:Double>
+    <sys:Double x:Key="Font.Size.CardTitle">17</sys:Double>
+    <sys:Double x:Key="Font.Size.SectionTitle">18</sys:Double>
+    <sys:Double x:Key="Font.Size.Title">19</sys:Double>
+    <sys:Double x:Key="Font.Size.DetailTitle">23</sys:Double>
+    <sys:Double x:Key="Font.Size.PageTitle">26</sys:Double>
+    <sys:Double x:Key="Font.Size.StatNumber">30</sys:Double>
+    <sys:Double x:Key="Font.Size.OverviewTitle">28</sys:Double>
+    <sys:Double x:Key="Font.Size.OverviewHero">38</sys:Double>
+    <sys:Double x:Key="Font.Size.Hero">88</sys:Double>
+    <sys:Double x:Key="Font.Size.Display">52</sys:Double>
+    <sys:Double x:Key="Font.Size.Clock">26</sys:Double>
+    <sys:Double x:Key="Font.Size.Metric">44</sys:Double>
+    <sys:Double x:Key="Font.Size.StationTitle">22</sys:Double>
+    <sys:Double x:Key="Font.Size.HeroUnit">28</sys:Double>
+</ResourceDictionary>

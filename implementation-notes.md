@@ -1,0 +1,152 @@
+# 精简整线控制台 Implementation Notes
+
+## Decisions
+- 2026-07-07 接入 `agent-universal-harness\`，将复制进来的 `agent-universal-harness-fresh-20260707` 改为稳定目录名；harness 内记录任务卡、项目宪章、权限表、停止规则、上下文索引、验证脚本和进度报告。
+- 2026-07-07 新增 `docs/architecture.md`、`docs/project-structure.md`、`docs/cleanup/project-structure-cleanup-plan.md` 和根目录 `.gitignore`，只做边界说明和未来清理候选登记，不删除或移动业务目录。
+- 2026-07-07 统一快速验证入口为 `.\agent-universal-harness\scripts\verify.ps1 -Quick`；快速模式执行主解决方案 build、JSON/结构检查和测试项目编译，不运行主程序、不连接硬件、不写 IO/伺服。
+- 2026-07-07 伺服现场调试前安全加固：伺服页默认改为点动模式，正/反转按钮在点动模式下按下开始、松开或丢失捕获后写 0 停止；默认速度输入从 300 rpm 降为 100 rpm，并在页面显示 `点动/连续`、`单轴/同步` 切换状态。
+- 2026-07-07 伺服命令成功后立即刷新本地快照缓存，避免写入使能/停用/速度后 UI 或测试必须等待下一轮轮询才看到目标状态。
+- 2026-07-07 WPF 页面 smoke test 改为共享 STA Dispatcher，不再每个测试创建线程后反复 `Application.Shutdown()`，修复全量测试宿主在 `HwndSubclass` 退出阶段崩溃的问题。
+- 2026-07-07 核对厂家资料：照片铭牌确认为 `SV-X4EA040A-AE-00`；X4EA-AE 安装说明书确认 CN4/CN5 是 RS485 通讯口；`禾川X5-Modbus控制.docx` 明确 P09.00 站号、P09.01 波特率、P09.02 数据格式、P00.01=1 速度模式、P03.00=4 通信给定、P09.05=2H 通信 DI 控制权、`3607H` 使能和 P03.36=`0324H` 地址规则。后续 `SV-X5系列脉冲驱动器用户手册 V1.1.pdf` 复核显示：P03.36 是“第 1 段速度/内部多段速度设定值”，不能直接证明 `P03.00=4` 通信给定时写 `0324H` 必然作为当前速度命令。
+- 2026-07-07 当前 HMI 通信实现仍是 `TcpClient + NModbus` 访问 TCP→RTU 网关，驱动器侧为 RS485 Modbus RTU；如果现场改成电脑直连 USB-RS485/COM 口，需要新增 Modbus RTU 串口驱动，不能直接使用现有 `GatewayIp/GatewayPort` 配置。
+- 2026-07-07 现场 4 台伺服驱动器只读通讯验证通过：`192.168.0.7:502` 经 USR 304-C7 模块可读站号 1~4 的 `P09.00/P09.01/P09.02`，确认电脑→网关→RS485→4 台驱动器链路已通。`3607H` 用 FC03 读返回 `Modbus exception 0x03`，不作为通讯失败判据。
+- 2026-07-07 已将 HMI/exe 初始伺服配置预置为 `GatewayIp=192.168.0.7`、`GatewayPort=502`、站号 1~4、`ScanCycleMs=100`、`HeartbeatCycleMs=3000`、`DefaultSpeedRpm=0`、`MaxSpeedRpm=300`，写入源码 `appsettings.json`、Debug exe 旁 `appsettings.local.json` 和当时部署包 `appsettings.local.json`；旧部署包后续已按用户确认清理。
+- 2026-07-07 现场网络 IP 核对：IO 控制卡主卡配置为 `192.168.0.1`，伺服 485 网关 / USR 304-C7 配置为 `192.168.0.7:502`，项目期望工控机/HMI 本机 IP 为 `192.168.0.200`。只读 `ping` 确认 `.0.1` 和 `.0.7` 在线；当前电脑实际网卡为 `192.168.0.3`、`192.168.0.60`、`192.168.0.91`，未发现 `.0.200`。后续现场应将设备通讯网卡设置/增加为 `192.168.0.200/24`，或同步修改 `CardComm.PcIp`。
+- 2026-07-09 GitHub 初始基线准备：补充 `.gitignore` 规则，排除 Visual Studio 临时文件、构建输出、`tmp/`、`deploy/`、`.sdf` 和 `ipch/`；初始提交保留源码、文档、厂家资料和当前必要 DLL。远端建议创建 private 仓库，避免公开现场网络配置和工控项目信息。
+- 2026-07-07 按用户确认清理旧部署包和生成物：删除 `deploy\CentralCleanLineHmi-win10-x64-20260622\`、同名 zip、旧 Release 输出、测试 `bin/obj` 和当前源码项目 `obj`；保留源码、厂家资料、参考骨架、文档、harness 和最新 Debug exe。后续上机前需重新发布最新部署包。
+- 2026-07-07 伺服连接误判修正：现场只接 1 号站时，HMI 到 `192.168.0.7:502` 已建立 TCP 连接，但状态轮询回读 `3607H`/`0324H` 可能失败；`RealServoDriver.ReadAxis` 已改为对状态回读容错，不再因写命令寄存器不能 FC03 回读而把网关连接判离线。写使能和写速度逻辑保持原样，实际点动成败仍由写寄存器返回决定。
+- 2026-07-07 1 号站不转现场只读诊断：HMI 日志确认 `ServoOn` 和 `SetSpeed ±100/0 rpm` 均返回成功；只读 Modbus 检查显示 `P00.01=0`、`P09.05=0`、`ServoOn(3607H)=0`，`P03.00`、`P04.01`、`P09.02`、`P09.11` 等 FC03 返回 `0x03` 异常。结论倾向驱动器尚未设置为通信速度/通信 DI 控制，或需通过驱动器面板确认参数和硬件使能/STO/报警状态。本轮未写任何参数寄存器。
+- 2026-07-07 1 号站低速直写测试：关闭 HMI 后只读确认 `P00.01=1`、`P03.00=4`、`P04.01=0`、`P09.05=2`、`P03.36=0`；随后直写 `0324H=0`、`3607H=2`、`0324H=20` 持续约 0.8 秒、`0324H=0`、`3607H=0`，所有 FC06 写入返回 OK。最终回读 `P03.36=0`；`3607H` 回读仍返回 `0x03`，不作为写入失败判据。结合后续手册复核，这次“写入 OK 但不转”不能证明驱动器接受了当前速度命令，需接机后通过 `P21.03 速度指令` 判断写 `0324H` 是否进入实际速度通道。
+- 2026-07-08 上位机侧临时改用数字速度给定：`Resources/servo-registers.json` 的 `SpeedCommand.address` 从 `0324H/P03.36` 改为 `0303H/P03.03`。现场驱动器侧需同步设 `P03.00=0`，即数字给定速度模式；使能仍为 `P04.01=0`、`P09.05=2H`、持续写 `3607H=2H`。
+- 2026-07-08 伺服页新增现场调速控件：速度输入框使能前也可编辑，增加 `-10`、`+10` 和 `写入` 按钮；轴正转/反转期间点击 `-10/+10/写入` 会按当前方向立即写入新速度，停止状态仅更新预设速度。
+- 2026-07-08 现场接入第二台伺服：`Resources/servo-registers.json` 从单轴调试改为双轴调试，当前启用 `1#伺服 station=1` 和 `2#伺服 station=2`；寄存器保持 `ServoOn=3607H`、`SpeedCommand=0303H/P03.03`，驱动器侧 2 号站需设 `P09.00=2`。
+- 主壳导航收敛为 3 个入口：`总控`、`IO 点位`、`通讯`。
+- `总控` 使用 `LineControlService` 管理 `Idle/Running/Fault` 状态；`自动开启` 启动线头/线尾升降台自动循环，`自动关闭` 立即断开自动输出。
+- 第二入口显示为 `IO 点位`，复用 `IoBoardService` 和点位映射，同时展示 X 输入和 Y 输出。
+- Y 点操作必须开启手动模式；未连接板卡时走本地手动输出反馈，不写真实硬件。
+- 手动输出后 Y 点会显示 ON 和手动/强制标记，状态区显示已手动输出数量；`全部复位` 可关闭刚刚手动打开的输出，未连接时也可一键复位本地输出。
+- 手动 IO 页连接板卡时不再自动写安全默认输出；连接只读取当前输出反馈，避免真实板卡接入时一次连接触发整组 Y 点变化。
+- 手动 IO 页的 `全部复位` 只关闭本轮手动打开过的 Y 点，不再调用整板 `Reset` 或遍历全部安全默认 OFF 输出。
+- `IoBoardService` 已区分 `Manual` / `Automatic` 输出归属；手动复位只关闭手动输出，自动关闭只关闭自动流程输出。
+- 扩展卡1 Y0-Y9 已录入现场输出动作，并新增动作组按钮；线头/线尾电缸上升下降按同步点成组输出，同一电缸上下方向互锁。
+- 扩展卡1动作按钮改为真正点动输出：按下时成组 ON，松开或丢失鼠标/触摸捕获时成组 OFF；点击保持式 `ToggleOutputActionGroupCommand` 保留给测试和内部调用，不再绑定到动作按钮。
+- 本体 X8 已改名为 `线头防呆光电`；X8 有信号时禁止扩展卡1 Y8 `线头气缸伸出`，若 Y8 已输出则立即关闭，必须等 X8 无信号后才允许点动输出。
+- 工控机触控兼容增强：顶部 `手动` 改为大号 ON/OFF 切换按钮，切换时状态区明确提示；点动输出按钮增加 Stylus 事件捕获，兼容部分触摸屏走触控笔输入导致鼠标/Touch 事件不稳定的情况。
+- 2026-06-22 工控机部署包增强：IO 点位小格子、顶部 `手动 ON/OFF`、`连接`、`全部复位` 均增加 Touch/Stylus 兜底处理；触摸屏点击不触发普通鼠标 Click 时，仍会执行对应命令。
+- 2026-06-22 生成 Win10 x64 自包含部署包：`deploy\CentralCleanLineHmi-win10-x64-20260622\`；包内包含 .NET 8 自包含运行文件、`PipelineControl.UI.exe`、`Resources\io-points.json`、三份厂家 64 位 MultiCard DLL 和 `msvcr100.dll`。该旧部署包已于 2026-07-07 清理。
+- 2026-06-22 DLL 加载失败根因定位：`MultiCardCLR.dll` 依赖 VC++ 2010 x64 运行库 `MSVCR100.dll`；旧包带了 MultiCard 三件套但没有带该运行库，工控机未安装对应运行库时会报“加载 DLL 失败”。
+- 2026-06-22 部署包新增 `检查DLL环境.cmd/.ps1`，可在工控机现场检查系统位数、进程位数、关键 DLL 是否存在、PE 位数、`LoadLibrary` 和 `MultiCardCS.dll` 托管加载结果。
+- `IoBoardService.WriteOutputsAsync` 支持同模块批量输出，真实驱动走 `GA_SetExtDoValue/MC_SetExtDoValue`，用于同步点一次写入整模块。
+- 自动升降 v1 只使用 X1/X2/X3/X5/X6/X7：线头 X1 有信号上升到 X3，X1 无信号先等待 3 秒再下降到 X2；线尾 X5 有信号下降到 X6，X5 无信号先等待 3 秒再上升到 X7。
+- 自动模式下新增本体 Y0/Y1 条件输出：线头 X2 下限位有信号且 X1 行程无信号时 Y0 ON；Y1 同条件输出，但 X0 有信号时禁止输出；X1 行程一有信号时 Y0/Y1 都 OFF。
+- 自动模式开启后，IO 控制卡本体 Y2-Y9 保持 ON；自动关闭或进入异常时关闭。
+- 自动模式下扩展卡1 Y8/Y9 线头/线尾气缸改为升降动作到位后触发：线头上升到 X3 上限后，若本体 X8 防呆无信号，则 Y8 输出 3 秒后关闭；线尾下降到 X6 下限后，Y9 输出 3 秒后关闭。线头下降到 X2、线尾上升到 X7 这类复位方向到位不触发气缸。
+- 自动运行期间线头、线尾并行独立判断，但 Y17-Y24 统一合并成一次扩展卡1批量写入；同一站位上下方向永远不会同时输出。
+- 自动开启必须 IO 已连接，且没有未复位手动输出；自动运行或自动异常时 IO 手动页禁止手动输出。
+- 动作超过 30 秒未到目标限位、上下限同时触发、通讯断开或输出写入失败时进入 `Fault`，并尝试关闭自动输出；必须按 `自动关闭` 回到待机后才能再次启动。
+- IO 点位格子现在会显示已确认的现场名称；有名称的模块自动使用更宽的两行格子，第一行点号，第二行现场名称；点号和现场名分开绑定，避免 WPF 裁掉换行文本。
+- `通讯` 只渲染 PC IP、主卡 IP、扩展卡数、扫描周期、心跳、仿真模式 6 个字段，保存仍走 `JsonSettingsService`。
+- 全局字体栈更新为 `Aptos/Segoe UI Variable/Microsoft YaHei`，并增大基础字号与关键控件高度，减少中文残缺、图标挤压和按钮文字截断。
+- 顶部导航右侧新增亮色/暗色切换按钮，切换即时生效并保存到 `appsettings.local.json`。
+- 主窗口最小宽度、侧栏宽度、侧栏图标列、设置表单列宽、IO 点位格子尺寸统一放宽；页面窄宽度下用文本截断/滚动代替重叠。
+- 顶部品牌区更换为新的矢量工业智造 logo，并在 logo 右侧显示 `工管技术中心智造`。
+- 页面布局不再使用下拉框；设置项后续如需选项选择，统一用横向平铺的单选项显示。
+- IO 监控页由左右双栏改为上下分区，X 输入和 Y 输出均占满页面宽度；页面内滚动条隐藏，避免再出现灰色拖条。
+- IO 点位页进一步优化 X 输入布局：主卡独立加宽，扩展卡保持紧凑，中文现场名称格子改为更大两行显示；点位格子和动作按钮增加 hover/按下/开启反馈，方便触屏或工控机上确认点击。
+- 全局交互动效做流畅度优化：修复 `PressScale` 未实际用于点击缩放的问题，去掉点击透明度动画，缩短 hover/press/page-enter 时间；IO 小格子改为无位移轻缩放，大型顶部栏/侧栏/状态栏不再整体跟随鼠标动画，减少卡顿和拖沓感。
+- 低配工控机部署场景下新增轻量质感优化：顶部导航保留静态高光线，IO 卡片使用静态轻渐变背景；同时移除状态栏离线提示的无限呼吸动画，避免持续占用渲染资源。
+- 全局 `ScrollBar` 模板改为 0 尺寸不可见，并将默认 `ScrollViewer`/列表/选择控件滚动条策略设为隐藏，确保界面不再出现滚动条。
+- 删除运行页面上的滚动容器：侧栏、IO 点位和通讯均改为一屏平铺布局；通讯 6 项固定为 2 列 3 行。
+- 删除大屏功能入口、DashboardWindow、DashboardViewModel、Dashboard 专属主题、DI/导航映射和对应测试。
+- 运行界面文案调整为工控 HMI 风格短标签，减少说明句：`总控`、`IO 点位`、`通讯`、`自动开启`、`自动关闭`、`全部复位` 等。
+- Obsidian 源笔记已从单页说明升级为文件夹式知识库结构：`索引 / Project / Postmortem / Pattern / Playbook`，源文件保存在 `docs/obsidian/`。
+- 2026-07-02 新增禾川 SV-X4EA 伺服 Modbus TCP 接入（手动测试盘第一版）。伺服型号经铭牌确认为 `SV-X4EA040A-AE`（脉冲型，400W，RS485/Modbus RTU）。链路采用单 TCP + RS485 手拉手：工控机 1 个 TCP 连到串口服务器，串口服务器内部转成 RS485 总线，4 台伺服 CN4/CN5（RJ45，第4/5脚 RS485±）手拉手挂在总线上，靠站号区分。
+- 伺服驱动架构逐文件镜像现有 `Io/` 那套：`Services/Servo/` 下 `IServoDriver` / `ServoConnectionOptions` / `ServoDriverFactory` / `Drivers/RealServoDriver`（NModbus `ModbusIpMaster` 单 TcpClient + lock 串行）/ `Drivers/MockServoDriver` / `ServoService`（Singleton，连接/轮询/心跳续写/失败计数/急停）。复用 `ApiResult`、`IAppLogService`、`Advanced.SimulationMode` 统一仿真开关。
+- 寄存器地址走 `Resources/servo-registers.json` 配置，不写死 C#：使能地址 3607H（写 2H 开/0H 关，厂家资料已确认）；速度指令地址当前临时改为 0303H/P03.03，要求驱动器 `P03.00=0`。原 0324H/P03.36 仅保留为内部多段速度候选思路，不在当前 HMI 调试方案中使用。
+- 伺服参数加进 `SystemSettings.ServoComm`：网关 IP/端口、4 轴站号、扫描周期（默认 100ms）、心跳周期（默认 3000ms，docx 要求使能续写 ≤5s）、默认转速、最大转速（限幅）。通讯页 `SettingsViewModel` 渲染对应 10 个字段。
+- 伺服操作页 `Views/Pages/Servo/ServoPage`：4 轴卡片平铺（使能/停用/写转速/复位）+ 顶部连接/急停；工控触摸风格，PreviewTouchUp/PreviewStylusUp 兜底；侧栏「主控」组新增「伺服」入口（PageKey=Servo，PageNavigator 已注册路由）。
+- `ServoService` 轮询周期读 4 轴状态 + 按心跳周期续写使能（docx 硬性要求：通信控制 DI 时持续写入间隔不超过 P09.11 出厂 5s，否则驱动器断线自动关使能）。
+- 故障码寄存器和通信故障复位地址 docx/手册均未给（X4 通信手册是 EtherCAT 体系，地址不通用于脉冲型 X4EA），`ServoService.ResetFaultAsync` 当前只记日志，待手册回填地址后补通信复位。
+
+## Deleted Runtime Scope
+
+## Deleted Runtime Scope
+- 删除报警、配方、生产记录、日志查询、诊断维护页面、ViewModel、运行态服务注册和对应测试。
+- 删除旧全局报警横幅、旧 IO 综合监控页面、旧设置分类页面、配方示例资源和未使用的大屏业务控件。
+- 删除日志查询服务 `ILogFileService`/`SerilogLogFileService`，保留 `IAppLogService`/`JsonAppLogService` 写结构化运行日志。
+
+## Retained Capabilities
+- 保留真实板卡驱动、64 位 DLL 复制、IO 点位映射、输出写入安全校验、复位和 IO 事件日志桥。
+- 保留 IO 点位验证导入/导出底层能力；页面上不再展示导出验证表。
+
+## Verification
+- 2026-07-07 harness 接入验证：
+  - 通过：`.\agent-universal-harness\scripts\check-harness.ps1`（`HARNESS CHECK PASSED (Project)`）。
+  - 通过：`.\agent-universal-harness\scripts\verify.ps1 -Quick`，主解决方案 build 0 warnings / 0 errors，配置/结构检查通过，测试项目编译 0 warnings / 0 errors。
+  - 曾未通过：`.\agent-universal-harness\scripts\verify.ps1` 全量测试阶段先显示 52 passed，随后测试宿主崩溃：`System.NullReferenceException` at `MS.Win32.HwndSubclass.SubclassWndProc`，退出码 1。该问题后续已通过共享 STA Dispatcher 修复。
+- 2026-07-07 伺服现场调试前安全加固验证：
+  - 通过：`dotnet test tests\PipelineControl.UI.Tests\PipelineControl.UI.Tests.csproj --no-restore --filter "FullyQualifiedName~ButtonTemplateReadabilityTests|FullyQualifiedName~Servo"`（37 passed）。
+  - 通过：`dotnet test tests\PipelineControl.UI.Tests\PipelineControl.UI.Tests.csproj --no-restore --filter "FullyQualifiedName~AppThemePageSmokeTests|FullyQualifiedName~SettingsPageSmokeTests"`（3 passed）。
+  - 通过：`.\agent-universal-harness\scripts\verify.ps1`，build 0 warnings / 0 errors，配置/结构检查通过，149 tests passed，安全检查确认未启动 App、未连接硬件、未写 IO 或伺服寄存器。
+- 2026-07-07 厂家 485 Modbus 资料核对后验证：
+  - 通过：`.\agent-universal-harness\scripts\verify.ps1 -Quick`，build 0 warnings / 0 errors，配置/结构检查通过，测试项目编译 0 warnings / 0 errors，安全检查确认未启动 App、未连接硬件、未写 IO 或伺服寄存器。
+- 2026-07-07 HMI 现场伺服配置预置后验证：
+  - 通过：`.\agent-universal-harness\scripts\verify.ps1 -Quick`，build 0 warnings / 0 errors，配置/结构检查通过，测试项目编译 0 warnings / 0 errors，安全检查确认未启动 App、未连接硬件、未写 IO 或伺服寄存器。
+- 2026-07-07 项目目录低风险清理后验证：
+  - 已删除 `.vs/`、`tmp/`、`work/`、`run_output.txt`、`temp_run.txt` 并清理当前源码/测试项目旧 `obj/`；保留 `deploy/`、厂家资料、参考骨架、源码、测试、文档、harness 和可运行 `bin/`。
+  - 首次 `.\agent-universal-harness\scripts\verify.ps1 -Quick` 因 `obj/project.assets.json` 被清理且 verify 使用 `--no-restore` 失败。
+  - 通过：`dotnet restore CentralCleanLineHmi.sln`。
+  - 通过：`.\agent-universal-harness\scripts\verify.ps1 -Quick`，build 0 warnings / 0 errors，配置/结构检查通过，测试项目编译 0 warnings / 0 errors，安全检查确认未启动 App、未连接硬件、未写 IO 或伺服寄存器。
+  - 说明：验证后存在的 `obj/` 是 `dotnet restore/build` 按当前源码重新生成的必要中间产物，不是旧垃圾文件回滚。
+- 2026-07-07 旧部署包和旧生成物清理后验证：
+  - 已按用户确认删除 `deploy\CentralCleanLineHmi-win10-x64-20260622\`、同名 zip、旧 Release 输出、测试 `bin/obj` 和当前源码项目 `obj`；保留源码、厂家资料、参考骨架、文档、harness 和最新 Debug exe。
+  - 首次 `.\agent-universal-harness\scripts\verify.ps1 -Quick` 因 `obj/project.assets.json` 被清理且 verify 使用 `--no-restore` 失败。
+  - 通过：`dotnet restore CentralCleanLineHmi.sln`。
+  - 通过：`.\agent-universal-harness\scripts\verify.ps1 -Quick`，build 0 warnings / 0 errors，配置/结构检查通过，测试项目编译 0 warnings / 0 errors，安全检查确认未启动 App、未连接硬件、未写 IO 或伺服寄存器。
+- 2026-07-07 伺服状态回读容错后验证：
+  - 通过：`.\agent-universal-harness\scripts\verify.ps1 -Quick`，build 0 warnings / 0 errors，配置/结构检查通过，测试项目编译 0 warnings / 0 errors。
+  - 已重新打开 Debug exe 供现场手动调试；Agent 未执行连接、使能或点动。
+- 通过：`dotnet test tests\PipelineControl.UI.Tests\PipelineControl.UI.Tests.csproj --no-restore`（91 passed）
+- 通过：`dotnet build CentralCleanLineHmi.sln --no-restore`（0 warnings, 0 errors）
+- 通过：字体和布局修复后重新执行同一组 UI 测试与解决方案 build。
+- 通过：回读 `docs/obsidian/`，确认已生成 7 份中央净软线知识库笔记和 README。
+- 未通过：当前会话尝试复制到 `E:\Desktop\PLC知识库\中央净软线\` 时被系统拒绝写入，vault 仍可能停留在旧单文件版本。
+- 通过：自动升降逻辑 v1 后执行 `dotnet test tests\PipelineControl.UI.Tests\PipelineControl.UI.Tests.csproj --no-restore`（104 passed）。
+- 通过：自动升降逻辑 v1 后执行 `dotnet build CentralCleanLineHmi.sln --no-restore`（0 warnings, 0 errors）。
+- 通过：X1/X5 行程 OFF 延迟 3 秒后执行复位方向后，执行 `dotnet test tests\PipelineControl.UI.Tests\PipelineControl.UI.Tests.csproj --no-restore`（105 passed）。
+- 通过：X1/X5 行程 OFF 延迟 3 秒后执行复位方向后，执行 `dotnet build CentralCleanLineHmi.sln --no-restore`（0 warnings, 0 errors）。
+- 通过：本体 Y2-Y9 自动常开后执行 `dotnet test tests\PipelineControl.UI.Tests\PipelineControl.UI.Tests.csproj --no-restore`（106 passed）。
+- 通过：本体 Y2-Y9 自动常开后执行 `dotnet build CentralCleanLineHmi.sln --no-restore`（0 warnings, 0 errors）。
+- 通过：本体 Y0/Y1 线头下限位条件输出后执行 `dotnet test tests\PipelineControl.UI.Tests\PipelineControl.UI.Tests.csproj --no-restore`（107 passed）。
+- 通过：本体 Y0/Y1 线头下限位条件输出后执行 `dotnet build CentralCleanLineHmi.sln --no-restore`（0 warnings, 0 errors）。
+- 通过：本体 X0 禁止本体 Y1 输出后执行 `dotnet test tests\PipelineControl.UI.Tests\PipelineControl.UI.Tests.csproj --no-restore`（108 passed）。
+- 通过：本体 X0 禁止本体 Y1 输出后执行 `dotnet build CentralCleanLineHmi.sln --no-restore`（0 warnings, 0 errors）。
+- 通过：本体 X8 线头防呆光电禁止扩展卡1 Y8 线头气缸伸出后执行 `dotnet test tests\PipelineControl.UI.Tests\PipelineControl.UI.Tests.csproj --no-restore`（110 passed）。
+- 通过：本体 X8 线头防呆光电禁止扩展卡1 Y8 线头气缸伸出后执行 `dotnet build CentralCleanLineHmi.sln --no-restore`（0 warnings, 0 errors）。
+- 通过：自动模式线头/线尾气缸 3 秒脉冲后执行 `dotnet test tests\PipelineControl.UI.Tests\PipelineControl.UI.Tests.csproj --no-restore`（112 passed）。
+- 通过：自动模式线头/线尾气缸 3 秒脉冲后执行 `dotnet build CentralCleanLineHmi.sln --no-restore`（0 warnings, 0 errors）。
+- 通过：2026-06-22 工控机部署包触摸兜底后执行 `dotnet test tests\PipelineControl.UI.Tests\PipelineControl.UI.Tests.csproj --no-restore`（112 passed）。
+- 通过：2026-06-22 工控机部署包触摸兜底后执行 `dotnet build CentralCleanLineHmi.sln --no-restore`（0 warnings, 0 errors）。
+- 通过：`dotnet restore src\PipelineControl.UI\PipelineControl.UI.csproj -r win-x64` 后执行 self-contained publish 到 `deploy\CentralCleanLineHmi-win10-x64-20260622\`。
+- 通过：部署目录内确认 `PipelineControl.UI.exe`、`MultiCard.dll`、`MultiCardCLR.dll`、`MultiCardCS.dll`、`msvcr100.dll`、`appsettings.json`、`Resources\io-points.json`、`检查DLL环境.cmd/.ps1` 均存在。
+- 通过：部署目录内 `PipelineControl.UI.exe`、三份 MultiCard DLL 和 `msvcr100.dll` 均确认为 x64 PE 文件。
+- 通过：在部署目录运行 `检查DLL环境.ps1`，`msvcr100.dll`、`MultiCard.dll`、`MultiCardCLR.dll` 均 `LoadLibrary OK`，`MultiCardCS.dll` 托管加载 OK。
+- 历史中间版本：自动气缸曾短暂改为行程开关循环触发并通过测试（113 passed），该方案已被当前“升降到位后触发”逻辑替代。
+- 通过：重新发布 Win10 x64 自包含部署文件夹到 `deploy\CentralCleanLineHmi-win10-x64-20260622\`，不压缩，供 U 盘复制。
+- 通过：自动气缸改为升降到位后触发后执行 `dotnet test tests\PipelineControl.UI.Tests\PipelineControl.UI.Tests.csproj --no-restore`（114 passed）。
+- 通过：自动气缸改为升降到位后触发后执行 `dotnet build CentralCleanLineHmi.sln --no-restore`（0 warnings, 0 errors）。
+- 通过：重新发布 Win10 x64 自包含部署文件夹到 `deploy\CentralCleanLineHmi-win10-x64-20260622\`。
+- 通过：2026-07-02 伺服 Modbus 接入后执行 `dotnet build CentralCleanLineHmi.sln --no-restore`（0 warnings, 0 errors）。
+- 历史受限：2026-07-02 新增伺服测试 3 文件（MockServoDriverTests / ServoServiceTests / ServoViewModelTests，约 30 用例）后，测试 dll 曾报 `0x800711C7 应用程序控制策略已阻止此文件`（WDAC/SmartScreen 拦截），当时换临时目录、等待扫描均无效；2026-07-07 本机全量测试已恢复并通过。
+
+## Risks
+- 2026-07-07 `.git` 原为空壳，已执行 `git init -b main` 让 Git 可用；尚未创建初始提交，删除、移动和批量清理仍必须先人工确认。
+- 2026-07-07 早前全量测试宿主曾在 WPF 相关退出阶段崩溃；已通过共享 STA Dispatcher 修复，当前完整 verify 通过。
+- `IoBoardService` 内部仍以 `AlarmRaised` 命名 IO 异常事件，但该事件现在只写结构化日志和页面状态，不再接报警页面服务。
+- 自动升降 v1 已用 X0 作为本体 Y1 禁止条件，手动/自动 IO 已用 X8 作为线头气缸防呆条件；尚未接入 X4、急停、气压、水压、门禁等整线互锁。
+- 旧部署包曾确认带厂家 64 位 DLL 和 `msvcr100.dll`，现已按用户确认清理；后续重新发布后若工控机仍提示 DLL 加载失败，先运行 `检查DLL环境.cmd`，再排查厂家驱动安装、杀软拦截、系统位数和是否完整复制整个文件夹。
+- 伺服速度寄存器当前改为 0303H/P03.03，现场必须把驱动器 `P03.00` 改为 0 才能匹配。原 0324H 只能作为候选地址：厂家资料和 `SV-X5` 手册可确认它对应 P03.36 第 1 段内部多段速度，但不能直接确认它就是 `P03.00=4` 通信给定的实时速度命令。
+- 当前 HMI 只支持通过 TCP→RTU 网关访问 RS485 Modbus；若现场要电脑直连 USB-RS485/COM 口，必须新增串口 RTU 驱动并重新验证。
+- 伺服使能是硬性安全逻辑：通信控制 DI 时持续写入间隔不得超过 P09.11（出厂 5s），否则驱动器断线自动关使能；`ServoService` 已按心跳周期续写，但上机前必须确认串口服务器/RS485 链路稳定。
+- 故障码寄存器、通信故障复位地址 X4 通信手册（EtherCAT 体系，6040h/603Fh）与脉冲型 X4EA 的 Modbus 地址不通用，docx 也未给；`ServoService.ResetFaultAsync` 当前仅记日志，待拿到脉冲型 X4EA 专用 Modbus 手册回填地址后补通信复位。
+- 新增 NModbus 3.0.83 NuGet 依赖；发布部署包时需确认 `NModbus.dll` 已随 `dotnet publish` 进入输出目录。

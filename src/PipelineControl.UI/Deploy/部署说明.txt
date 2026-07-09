@@ -1,0 +1,26 @@
+中央净软线 Win10 x64 工控机部署包
+
+运行方式：
+1. 将整个 CentralCleanLineHmi-win10-x64-20260622 文件夹复制到 U 盘。
+2. 到工控机后，把整个文件夹复制到本地磁盘再运行，优先不要直接在 U 盘里运行。
+3. 双击“启动中央净软线.cmd”或“PipelineControl.UI.exe”运行。
+4. 不要只复制 exe，必须保留同目录下的 DLL、Resources、runtimes 等文件。
+
+本包已包含：
+- .NET 8 win-x64 自包含运行时
+- 厂家 64 位 DLL：MultiCard.dll、MultiCardCLR.dll、MultiCardCS.dll
+- VC++ 2010 x64 运行库依赖：msvcr100.dll
+- IO 点位映射：Resources\io-points.json
+- 默认配置：appsettings.json
+- 现场检查脚本：检查DLL环境.cmd
+
+如果仍显示“加载 DLL 失败”：
+1. 先运行“检查DLL环境.cmd”。
+2. 看 msvcr100.dll、MultiCard.dll、MultiCardCLR.dll、MultiCardCS.dll 是否都存在且为 x64。
+3. 看 Native LoadLibrary 检查是否全部 OK。
+4. 如果 MultiCardCLR.dll 仍失败，优先安装厂家板卡驱动或 VC++ 2010 x64 运行库。
+
+现场注意：
+- 通讯成功但输出无动作时，先确认“手动 ON”是否开启。
+- 本版已对 IO 页手动按钮、Y 点格子、点动按钮增加 Touch/Stylus 触摸屏兜底。
+- 真实输出仍以板卡接线、电源隔离、中间继电器和电磁阀电源为准。
